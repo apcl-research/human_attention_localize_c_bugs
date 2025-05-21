@@ -458,7 +458,7 @@ python ./create_specified_plot.py 20250413_165755_get_fixation_stats_20250413_16
  python .\create_specified_plot.py .\code_percent_demo\20250413_162432_fixations_data_fcount_md_vs_no_md.csv .\official_bug_names.csv "Bug" "Percent Code Fixations" "Participant ID" --title "Percent Fixations on Code" --xlabel "Bug" --ylabel "Percent Fixations on Code" --dir percent_code
 ```
 #### Outputs 
-- outputs a .png and a .svg version of a scatter plot and a box plot to a new folder called `uniq_methods` (or the directory name specified) that is created in the directory where the input csv_file is. The name of the .png and .svg are either based on the title from the command line arguments, or it is `Unique_Number_of_Methods_Visted_Per_Bug_*` 
+- outputs a .png and a .svg version of a scatter plot and a box plot to a new folder called `uniq_methods` (or the directory name specified) that is created in the directory where the input csv_file is. The name of the .png and .svg are either based on the title from the command line arguments, or it is `Unique_Number_of_Methods_Visited_Per_Bug_*` 
 - what the graph shows is really dependent on the data and the command line arguments, but when this script is called from `create_graphs.py`, the box plot shows the average number of unique methods/functions looked at for each bug. The average is over all the participants who completed the specified bug. When this script is called from `create_graphs.py`, the scatter plot shows how many unique methods/functions each participant looked at for each bug. The dots are color coded so that each participant is a different color, but the same color across all of the tasks they completed. 
 #### Outputs Used For
 NOTE: called by `create_graphs.py`. Used to create Figure 5 in paper.  
@@ -583,7 +583,7 @@ python .\get_fixation_stats_success_breakdown.py 20250413_165253_fixations_no_md
 #### Outputs 
 - `all` directory: contains metrics for all tasks (not divided by accuracy or confidence)
   - `L1_H5_Where_Accuracy` directory: contains metrics and plots for tasks divided by `Where_Accuracy` where the low threshold is <= 1 and the high threshold is >= 5. Measures differences between low and high groups. 
-  - `L1_H5_Where_Confidence` directory: contains metrics and plots for tasks divided by `Where_Confiderce` where the low threshold is <= 1 and the high threshold is >= 5. Measures differences between low and high groups. 
+  - `L1_H5_Where_Confidence` directory: contains metrics and plots for tasks divided by `Where_Confidence` where the low threshold is <= 1 and the high threshold is >= 5. Measures differences between low and high groups. 
   - `L2_H4_Where_Accuracy` directory: contains metrics and plots for tasks divided by `Where_Accuracy` where the low threshold is <= 2 and the high threshold is >= 4. Measures differences between low and high groups. 
   - `L2_H4_Where_Confidence` directory: contains metrics and plots for tasks divided by `Where_Confidence` where the low threshold is <= 2 and the high threshold is >= 4. Measures differences between low and high groups. 
   - `{name_of_pkl_file}_all.csv`: summary of 5 metrics: number of fixations, number of unique lines fixated on, regression rate, number of unique methods fixated on, mean fixation duration. There are mean, medians, mins, maxs, and stddevs for each metric calculated across all tasks. Ex: number of fixations for p10_ladybug + number of fixations for p2_stonefly + ... / total number of tasks = mean number of fixations 

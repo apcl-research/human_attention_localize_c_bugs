@@ -194,7 +194,7 @@ def main():
     if args.unit == "Functions":
         count_col_name = "Fixation Method Count"
         unit_col_name = "Fixation Method"
-        unit = "fixations"
+        unit = "functions"
         y_cutoff = 100
     elif args.unit == "Lines":
         count_col_name = "Fixation Line Count"

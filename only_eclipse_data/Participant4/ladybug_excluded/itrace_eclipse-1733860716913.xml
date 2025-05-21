@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<itrace_plugin session_id="638694575165411598">
+<environment screen_width="1920" screen_height="1080" plugin_type="eclipse"/>
+<gazes>
+<response event_id="133783343171295940" plugin_time="1733860717139" x="519.0" y="533.0" gaze_target="StudyInstructions.c" gaze_target_type="c" source_file_path="C:\StudyInstructions\StudyInstructions.c" source_file_line="196" source_file_col="5" editor_line_height="20" editor_font_height="13" editor_line_base_x="474" editor_line_base_y="524"></response>
+<response event_id="133783343171384178" plugin_time="1733860717153" x="508.0" y="459.0" gaze_target="StudyInstructions.c" gaze_target_type="c" source_file_path="C:\StudyInstructions\StudyInstructions.c" source_file_line="192" source_file_col="5" editor_line_height="20" editor_font_height="13" editor_line_base_x="474" editor_line_base_y="444"></response>
+<response event_id="133783343171466787" plugin_time="1733860717161" x="499.0" y="425.0" gaze_target="StudyInstructions.c" gaze_target_type="c" source_file_path="C:\StudyInstructions\StudyInstructions.c" source_file_line="191" source_file_col="4" editor_line_height="20" editor_font_height="13" editor_line_base_x="474" editor_line_base_y="424"></response>
+<response event_id="133783343171799485" plugin_time="1733860717192" x="510.0" y="428.0" gaze_target="StudyInstructions.c" gaze_target_type="c" source_file_path="C:\StudyInstructions\StudyInstructions.c" source_file_line="191" source_file_col="5" editor_line_height="20" editor_font_height="13" editor_line_base_x="474" editor_line_base_y="424"></response>
+<response event_id="133783343172216882" plugin_time="1733860717236" x="508.0" y="402.0" gaze_target="StudyInstructions.c" gaze_target_type="c" source_file_path="C:\StudyInstructions\StudyInstructions.c" source_file_line="189" source_file_col="5" editor_line_height="20" editor_font_height="13" editor_line_base_x="474" editor_line_base_y="384"></response>
+<response event_id="133783343172303150" plugin_time="1733860717245" x="505.0" y="392.0" gaze_target="StudyInstructions.c" gaze_target_type="c" source_file_path="C:\StudyInstructions\StudyInstructions.c" source_file_line="189" source_file_col="4" editor_line_height="20" editor_font_height="13" editor_line_base_x="474" editor_line_base_y="384"></response>
+<response event_id="133783343172550482" plugin_time="1733860717263" x="508.0" y="403.0" gaze_target="StudyInstructions.c" gaze_target_type="c" source_file_path="C:\StudyInstructions\StudyInstructions.c" source_file_line="189" source_file_col="5" editor_line_height="20" editor_font_height="13" editor_line_base_x="474" editor_line_base_y="384"></response>
+<response event_id="133783343172718736" plugin_time="1733860717278" x="505.0" y="391.0" gaze_target="StudyInstructions.c" gaze_target_type="c" source_file_path="C:\StudyInstructions\StudyInstructions.c" source_file_line="189" source_file_col="4" editor_line_height="20" editor_font_height="13" editor_line_base_x="474" editor_line_base_y="384"></response>
+</gazes>
+</itrace_plugin>
+

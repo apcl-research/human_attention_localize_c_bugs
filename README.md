@@ -29,7 +29,7 @@
 - `regression_euclidean.pdf` and `regression_euclidean` Figure 7 in paper 
 - 
 ### 5.1.2 `important_spreadsheets`
-- `20250413_162432_gazes_gaze_counts_per_region_percent.xlsx`: output from region script with AI percentages calculated manually 
+- `20250413_162432_gazes_gaze_counts_per_region_percent.csv`: output from region script with AI percentages calculated manually 
 - `20250413_165253_fixations_no_md_next_fixation_similarity_percent_2_4 (1).xls`
 - `Appendix_Bug_and_Grading_Information.xlsx`: contains information about each bug (repository, issue number, commit numbers); contains task set for each participant; contains scores and grading
 - `accuracy_scores.csv`: mapping from task to accuracy, confidence, difficulty scores 

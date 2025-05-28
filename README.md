@@ -172,7 +172,7 @@ Please see the `important_spreadsheets\Appendix_Bug_and_Grading_Information.xlsx
   
 1. Run `get_fixation_stats_success_breakdown.py` to get the basic metrics like fixation count, number of unique lines, etc. (Table 7)
 2. Run `create_graphs.py`. You need to run `get_fixation_stats_success_breakdown.py` first though because the directories that are the outputs of `get_fixation_stats_success_breakdown.py` are the inputs to `create_graphs.py`. (Table 8, Table 9, Figure 3, Figure 4)
-3. Run `get_region_times.py` to get the data used to calculate the percentages for Table 10. The percentages are calculated manually from the output. See our spreadsheet here: `important_spreadsheets/20250413_162432_gazes_gaze_counts_per_region_percent.xlsx` 
+3. Run `get_region_times.py` to get the data used to calculate the percentages for Table 10. The percentages are calculated manually from the output. See our spreadsheet here: `important_spreadsheets/20250413_162432_gazes_gaze_counts_per_region_percent.csv` 
 4. Create the `fixations_percent.csv` file (pre-work for Figure 5)
 - copy the `{timestamp}_fixations_data_fcount.csv` file from the `{timestamp}_get_fixation_stats_{timestamp}_fixations_outputs` directory to a new directory. I called this directory `code_percent` 
 - copy the `{timestamp}_fixations_no_md_data_fcount.csv` from the `{timestamp}_get_fixation_stats_{timestamp}_fixations_no_md_outputs` directory to the same directory `code_percent` 
@@ -203,10 +203,10 @@ Please see the `important_spreadsheets\Appendix_Bug_and_Grading_Information.xlsx
 - Table 5: 
   - program information and scores comes from `important_spreadsheets\Appendix_Bug_and_Grading_Information.xlsx`
   - time comes from `important_spreadsheets/duration_from_notes_seconds.csv` (includes p11_firefly, but not p11_ladybug)
-- Table 6: You can see the options in `prompt.py` in the `instructions` branch, and the Percentages are calculated on this spreadsheet: `important_spreadsheets/20250413_162432_gazes_gaze_counts_per_region_percent.xlsx` which is an aggregation of the .csvs from each participant (located on each participant's branch)
+- Table 6: You can see the options in `prompt.py` in the `instructions` branch, and the Percentages are calculated on this spreadsheet: `important_spreadsheets/20250413_162432_gazes_gaze_counts_per_region_percent.csv` which is an aggregation of the .csvs from each participant (located on each participant's branch)
 - Table 7: `get_fixation_stats_success_breakdown.py` outputs (metrics run on code-only/no_md version of data, includes p11_firefly, but not p11_ladybug)
 - Table 8-9: `create_graphs.py` runs `topx_contain_ypercent_fixations_log.py` which generates this data (metrics run on code-only/no_md version of data, includes p11_firefly, but not p11_ladybug)
-- Table 10: AI Queries can be see here: https://docs.google.com/spreadsheets/d/1HsdA5WA44Ezjk6fC90fZqoEeKMscgR-MtqGbvv1KHUs/edit?usp=drive_link, and percentages calculated on this sheet important_spreadsheets/20250413_162432_gazes_gaze_counts_per_region_percent.xlsx which is outputted from `get_region_times.py` (includes p11_ladybug and p11_firefly)
+- Table 10: AI Queries can be see here: https://docs.google.com/spreadsheets/d/1HsdA5WA44Ezjk6fC90fZqoEeKMscgR-MtqGbvv1KHUs/edit?usp=drive_link, and percentages calculated on this sheet important_spreadsheets/20250413_162432_gazes_gaze_counts_per_region_percent.csv which is outputted from `get_region_times.py` (includes p11_ladybug and p11_firefly)
 - Table 11: Data can be seen on `important_spreadsheets/20250413_165253_fixations_no_md_next_fixation_similarity_percent_2_4 (1).xls`, and that data comes from `get_fixation_stats_success_breakdown.py` and `get_answer_fixations.py` where you can also see the Table 11 numbers in the outputs. (metrics run on code-only/no_md version of data, does not include p11_firefly or p11_ladybug)
 
 ### 4.3.2 Figures 

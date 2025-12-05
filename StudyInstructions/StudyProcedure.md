@@ -18,6 +18,9 @@ Please DO NOT return to a previous bug when completing the subsequent bugs.
 ## *CHANGE TASK NAME* 
 *On the itrace core window on the Session Setup tab, please change the Task Name to "ladybug" and change the Data Directory to "ladybug"*
 
+## *CONNECT OBS TO CORE*
+*In OBS, select Tools->Scripts, and click "Connect to Core"* 
+
 ## *CALIBRATION REQUIRED*
 *On the itrace core window on the iTrace Tracking tab, click "Calibrate" and follow the instructions.*
 
@@ -68,6 +71,9 @@ Please let the study administrator know that you have stopped tracking by saying
 ## *CHANGE TASK NAME* 
 *On the itrace core window on the Session Setup tab, please change the Task Name to "stonefly" and change the Data Directory to "stonefly"* 
 
+## *CONNECT OBS TO CORE*
+*In OBS, select Tools->Scripts, and click "Connect to Core"* 
+
 ## *CALIBRATION REQUIRED*
 *On the itrace core window on the iTrace Tracking tab, click "Calibrate" and follow the instructions.*
 
@@ -117,6 +123,9 @@ Please let the study administrator know that you have stopped tracking by saying
 ----------------------------------------------------------------------------------------------------------------
 ## *CHANGE TASK NAME* 
 *On the itrace core window on the Session Setup tab, please change the Task Name to "hornet" and change the Data Directory to "hornet"* 
+
+## *CONNECT OBS TO CORE*
+*In OBS, select Tools->Scripts, and click "Connect to Core"* 
 
 ## *CALIBRATION REQUIRED*
 *On the itrace core window on the iTrace Tracking tab, click "Calibrate" and follow the instructions.*
@@ -169,6 +178,9 @@ Please let the study administrator know that you have stopped tracking by saying
 ## *CHANGE TASK NAME* 
 *On the itrace core window on the Session Setup tab, please change the Task Name to "silverfish" and change the Data Directory to "silverfish"*
 
+## *CONNECT OBS TO CORE*
+*In OBS, select Tools->Scripts, and click "Connect to Core"* 
+
 ## *CALIBRATION REQUIRED*
 *On the itrace core window on the iTrace Tracking tab, click "Calibrate" and follow the instructions.*
 
@@ -220,6 +232,9 @@ Please let the study administrator know that you have stopped tracking by saying
 ## *CHANGE TASK NAME* 
 *On the itrace core window on the Session Setup tab, please change the Task Name to "praying_mantis" and change the Data Directory to "praying_mantis"*  
 
+## *CONNECT OBS TO CORE*
+*In OBS, select Tools->Scripts, and click "Connect to Core"* 
+
 ## *CALIBRATION REQUIRED*
 *On the itrace core window on the iTrace Tracking tab, click "Calibrate" and follow the instructions.*
 
@@ -270,6 +285,9 @@ Please let the study administrator know that you have stopped tracking by saying
 ----------------------------------------------------------------------------------------------------------------
 ## *CHANGE TASK NAME* 
 *On the itrace core window on the Session Setup tab, please change the Task Name to "spider" and change the Data Directory to "spider"* 
+
+## *CONNECT OBS TO CORE*
+*In OBS, select Tools->Scripts, and click "Connect to Core"* 
 
 ## *CALIBRATION REQUIRED*
 *On the itrace core window on the iTrace Tracking tab, click "Calibrate" and follow the instructions.*

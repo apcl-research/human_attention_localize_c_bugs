@@ -15,7 +15,8 @@ What will be done:
     4. Answer questions about the bug, location, source code, and thought process.  
     5. The IDE will collect interaction data such as mouse clicks and keystrokes, 
     and an eye tracking device will track where you look on the screen during the 
-    duration of the study.
+    duration of the study.  
+    6. Software will take a screen capture of the screen during the experiment.
 
 We will analyze the data and find common patterns in the data.
 

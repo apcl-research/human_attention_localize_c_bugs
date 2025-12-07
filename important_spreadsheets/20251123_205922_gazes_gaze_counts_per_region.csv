@@ -1,0 +1,150 @@
+session,participant_id,bug,start,end,region1_gaze_count,region1_name,region1_topleft,region1_bottomright,region2_gaze_count,region2_name,region2_topleft,region2_bottomright,region3_gaze_count,region3_name,region3_topleft,region3_bottomright,region4_gaze_count,region4_name,region4_topleft,region4_bottomright,Note,out_of_bounds,no_x_y,total_gazes
+p1_ladybug_1454,p1,ladybug,start,end,45608,code_report,"(470,70)","(1920,750)",28634,fileExplorer,"(0,70)","(470,1080)",449.0,iTrace,"(470,750)","(1920,1080)",,,,,,730.0,3232.0,78653.0
+p1_ladybug_1500,p1,ladybug,start,end,8977,code_report,"(470,70)","(1920,750)",773,fileExplorer,"(0,70)","(470,1080)",889.0,iTrace,"(470,750)","(1920,1080)",,,,,"assuming coordinates don't change after 1454. these coordinates are assumed, not measured ",411.0,2495.0,13545.0
+p1_ladybug_1504,p1,ladybug,start,end,23884,code_report,"(470,70)","(1920,750)",120,fileExplorer,"(0,70)","(470,1080)",548.0,iTrace,"(470,750)","(1920,1080)",,,,,"assuming coordinates don't change after 1454. these coordinates are assumed, not measured ",66.0,2620.0,27238.0
+p1_ladybug_1506,p1,ladybug,start,end,986,code_report,"(470,70)","(1920,750)",152,fileExplorer,"(0,70)","(470,1080)",183.0,iTrace,"(470,750)","(1920,1080)",,,,,"assuming coordinates don't change after 1454. these coordinates are assumed, not measured ",0.0,70.0,1391.0
+p1_stonefly_1515,p1,stonefly,start,end,31971,code_report,"(470,70)","(1920,750)",13547,fileExplorer,"(0,70)","(470,1080)",268.0,iTrace,"(470,750)","(1920,1080)",,,,,"looked briefly at coordinates. Very close to coordinates from ladybug, so not changing. ",244.0,2886.0,48916.0
+p1_stonefly_1516,p1,stonefly,start,end,7846,code_report,"(470,70)","(1920,750)",275,fileExplorer,"(0,70)","(470,1080)",213.0,iTrace,"(470,750)","(1920,1080)",,,,,"looked briefly at coordinates. Very close to coordinates from ladybug, so not changing. ",105.0,1000.0,9439.0
+p1_hornet,p1,hornet,start,end,88877,code_report,"(470,70)","(1920,780)",20343,fileExplorer,"(0,70)","(470,1080)",734.0,iTrace,"(470,780)","(1920,1080)",,,,,"pretty close to previous, but y got shifted down 30 ",367.0,9077.0,119398.0
+p1_silverfish,p1,silverfish,start,end,50932,code_report,"(470,70)","(1920,770)",7969,fileExplorer,"(0,70)","(470,1080)",270.0,iTrace,"(470,770)","(1920,1080)",,,,,,1755.0,8002.0,68928.0
+p1_praying_mantis,p1,praying_mantis,start,end,121498,code_report,"(470,70)","(1920,770)",5268,fileExplorer,"(0,70)","(470,1080)",696.0,iTrace,"(470,770)","(1920,1080)",,,,,,3764.0,14860.0,146086.0
+p1_spider,p1,spider,start,end,45777,code_report,"(470,70)","(1920,770)",5214,fileExplorer,"(0,70)","(470,1080)",386.0,iTrace,"(470,770)","(1920,1080)",,,,,,1618.0,4904.0,57899.0
+p2_ladybug,p2,ladybug,start,end,149720,code_report,"(470,70)","(1920,770)",8040,fileExplorer,"(0,70)","(470,1080)",2054.0,iTrace,"(470,770)","(1920,1080)",,,,,,2335.0,9310.0,171459.0
+p2_stonefly,p2,stonefly,start,3:21,19363,code_report,"(470,70)","(1920,770)",3765,fileExplorer,"(0,70)","(470,1080)",426.0,iTrace,"(470,770)","(1920,1080)",,,,,,27.0,541.0,24122.0
+p2_stonefly,p2,stonefly,3:21,10:59,42599,code_report,"(470,70)","(1920,710)",1702,fileExplorer,"(0,70)","(470,1080)",7859.0,AI,"(470,710)","(1920,1080)",,,,,expanded AI chat window to see text better,438.0,2360.0,54958.0
+p2_stonefly,p2,stonefly,10:59,end,54479,code_report,"(470,70)","(1920,654)",2176,fileExplorer,"(0,70)","(470,1080)",23640.0,AI,"(470,654)","(1920,1080)",,,,,expanded AI chat window more ,2110.0,4969.0,87374.0
+p2_hornet,p2,hornet,start,end,106040,code_report,"(470,70)","(1920,665)",16243,fileExplorer,"(0,70)","(470,1080)",5880.0,AI,"(470,665)","(1920,1080)",,,,,ys got shifted down again,1936.0,5851.0,135950.0
+p3_hornet,p3,hornet,start,end,116742,code_report,"(285,70)","(1920,1080)",15407,fileExplorer,"(0,70)","(285,1080)",,,,,,,,,removed AI/iTrace window,1080.0,45243.0,178472.0
+p3_ladybug,p3,ladybug,start,end,36051,code_report,"(470,70)","(1920,827)",21007,fileExplorer,"(0,70)","(470,1080)",890.0,iTrace,"(470,827)","(1920,1080)",,,,,,311.0,3516.0,61775.0
+p3_praying_mantis,p3,praying_mantis,start,end,117294,code_report,"(285,70)","(1920,1080)",11595,fileExplorer,"(0,70)","(285,1080)",,,,,,,,,removed AI/iTrace window,559.0,11955.0,141403.0
+p3_silverfish,p3,silverfish,start,end,108699,code_report,"(285,70)","(1920,1080)",11165,fileExplorer,"(0,70)","(285,1080)",,,,,,,,,removed AI/iTrace window,1463.0,19846.0,141173.0
+p3_stonefly,p3,stonefly,start,end,124491,code_report,"(285,70)","(1920,1080)",4652,fileExplorer,"(0,70)","(285,1080)",,,,,,,,,removed AI/iTrace window,372.0,6161.0,135676.0
+p4_firefly,p4,firefly,start,end,70878,report,"(795,70)","(1920,730)",87362,code_fileExplorer,"(0,70)","(795,1080)",5852.0,AI,"(795,730)","(1920,1080)",,,,,expanded file Explorer side and looked at code on that side (left side),1625.0,14383.0,180100.0
+p4_ladybug,p4,ladybug,start,2:58,8544,report,"(415,70)","(1920,740)",12161,code_fileExplorer,"(0,70)","(415,1080)",41.0,AI,"(415,740)","(1920,1080)",,,,,,143.0,472.0,21361.0
+p4_ladybug,p4,ladybug,2:58,7:43,6938,report,"(714,70)","(1920,745)",20214,code_fileExplorer,"(0,70)","(714,1080)",4865.0,AI,"(714,745)","(1920,1080)",,,,,expanded file Explorer side and looked at code on that side (left side),56.0,2126.0,34199.0
+p4_ladybug,p4,ladybug,7:43,end,44415,report,"(714,70)","(1920,587)",29551,code_fileExplorer,"(0,70)","(714,1080)",9240.0,AI,"(714,587)","(1920,1080)",,,,,expanded AI more,365.0,11068.0,94639.0
+p4_praying_mantis,p4,praying_mantis,start,end,56060,report,"(924,70)","(1920,730)",90319,code_fileExplorer,"(0,70)","(924,1080)",7112.0,iTrace,"(924,730)","(1920,1080)",,,,,expanded file Explorer side and looked at code on that side (left side),746.0,11273.0,165510.0
+p4_stonefly,p4,stonefly,start,end,58002,report,"(798,70)","(1920,750)",92791,code_fileExplorer,"(0,70)","(798,1080)",11098.0,AI,"(798,750)","(1920,1080)",,,,,expanded file Explorer side and looked at code on that side (left side),652.0,13660.0,176203.0
+p4_weevil,p4,weevil,start,end,24528,report,"(924,70)","(1920,720)",55298,code_fileExplorer,"(0,70)","(924,1080)",1089.0,iTrace,"(924,720)","(1920,1080)",,,,,,614.0,7549.0,89078.0
+p5_firefly,p5,firefly,start,end,14562,fileExplorer,"(0,70)","(468,1080)",67174,report,"(468,70)","(1180,724)",35778.0,code,"(1180,70)","(1920,724)",21821.0,AI,"(468,724)","(1920,1080)","split into code and report. Report is always on right side in other bugs, so assuming that is the case for this bug, however, this video freezes pretty early in. ",1527.0,8806.0,149668.0
+p5_ladybug,p5,ladybug,start,4:00,5980,fileExplorer,"(0,70)","(375,1080)",15044,report,"(375,70)","(995,720)",6605.0,code,"(995,70)","(1920,720)",178.0,AI,"(375,720)","(1920,1080)","there was quite a bit of configuring before the 4 min mark, but I am not going to put all those tiny changes in. at this point, the file explorer is skinnier than it will be later. ",14.0,981.0,28802.0
+p5_ladybug,p5,ladybug,4:00,end,35163,fileExplorer,"(0,70)","(627,1080)",42638,report,"(627,70)","(1145,726)",52494.0,code,"(1145,70)","(1920,726)",14533.0,AI,"(627,726)","(1920,1080)",not sure what happened much after the 4 min mark since video froze,457.0,12393.0,157678.0
+p5_stonefly,p5,stonefly,start,end,9530,fileExplorer,"(0,70)","(468,1080)",69941,report,"(468,70)","(1095,725)",139294.0,code,"(1095,70)","(1920,725)",11770.0,AI,"(468,725)","(1920,1080)",,2595.0,17576.0,250706.0
+p5_weevil,p5,weevil,start,end,6790,fileExplorer,"(0,70)","(326,1080)",48297,code_report,"(326,70)","(1018,725)",7604.0,code_report,"(1018,70)","(1920,725)",830.0,AI,"(326,725)","(1920,1080)",,1938.0,6324.0,71783.0
+p6_ladybug,p6,ladybug,start,end,14275,fileExplorer,"(0,70)","(490,1080)",102586,code_report,"(490,70)","(1920,786)",1079.0,AI,"(490,786)","(1920,1080)",,,,,,4389.0,3711.0,126040.0
+p6_firefly,p6,firefly,start,end,36933,fileExplorer,"(0,70)","(490,1080)",122550,code_report,"(490,70)","(1920,780)",1409.0,iTrace,"(490,780)","(1920,1080)",,,,,,619.0,2911.0,164422.0
+p6_praying_mantis,p6,praying_mantis,start,end,6899,fileExplorer,"(0,70)","(490,1080)",56434,code_report,"(490,70)","(1920,780)",435.0,iTrace,"(490,780)","(1920,1080)",,,,,,147.0,2602.0,66517.0
+p6_spider,p6,spider,start,end,12915,fileExplorer,"(0,70)","(490,1080)",54026,code_report,"(490,70)","(1920,780)",390.0,iTrace,"(490,780)","(1920,1080)",,,,,,967.0,2532.0,70830.0
+p6_stonefly,p6,stonefly,start,end,16018,fileExplorer,"(0,70)","(490,1080)",72997,code_report,"(490,70)","(1920,786)",509.0,iTrace,"(490,786)","(1920,1080)",,,,,,2362.0,2709.0,94595.0
+p6_weevil,p6,weevil,start,end,4870,fileExplorer,"(0,70)","(490,1080)",53663,code_report,"(490,70)","(1920,780)",561.0,iTrace,"(490,780)","(1920,1080)",,,,,,947.0,2757.0,62798.0
+p7_ladybug,p7,ladybug,start,end,5054,fileExplorer,"(0,70)","(490,1080)",38161,code_report,"(490,70)","(1920,755)",309.0,AI,"(490,755)","(1920,1080)",,,,,,120.0,177510.0,221154.0
+p7_praying_mantis,p7,praying_mantis,start,end,5634,fileExplorer,"(0,70)","(490,1080)",103578,code_report,"(490,70)","(1920,755)",1630.0,iTrace,"(490,755)","(1920,1080)",,,,,,554.0,147436.0,258832.0
+p7_stonefly,p7,stonefly,start,end,6360,fileExplorer,"(0,70)","(490,1080)",124549,code_report,"(490,70)","(1920,755)",1237.0,iTrace,"(490,755)","(1920,1080)",,,,,,767.0,54640.0,187553.0
+p8_firefly,p8,firefly,start,end,9370,fileExplorer,"(0,70)","(490,1080)",193061,code_report,"(490,70)","(1920,755)",471.0,AI,"(490,755)","(1920,1080)",,,,,,4251.0,12703.0,219856.0
+p8_hornet,p8,hornet,start,end,4454,fileExplorer,"(0,70)","(490,1080)",205060,code_report,"(490,70)","(1920,760)",13670.0,AI,"(490,760)","(1920,1080)",,,,,,604.0,20479.0,244267.0
+p8_ladybug,p8,ladybug,start,end,5818,fileExplorer,"(0,70)","(490,1080)",113201,code_report,"(490,70)","(1920,755)",516.0,AI,"(490,755)","(1920,1080)",,,,,,187.0,8658.0,128380.0
+p8_stonefly,p8,stonefly,start,end,7699,fileExplorer,"(0,70)","(490,1080)",157036,code_report,"(490,70)","(1920,755)",9976.0,iTrace,"(490,755)","(1920,1080)",,,,,,647.0,25544.0,200902.0
+p9_hornet,p9,hornet,start,end,41738,fileExplorer,"(0,70)","(490,1080)",195042,code_report,"(490,70)","(1920,755)",12370.0,iTrace,"(490,755)","(1920,1080)",,,,,,584.0,22385.0,272119.0
+p9_ladybug,p9,ladybug,start,end,22337,fileExplorer,"(0,70)","(490,1080)",134765,code_report,"(490,70)","(1920,755)",14932.0,AI,"(490,755)","(1920,1080)",,,,,,625.0,18374.0,191033.0
+p9_stonefly,p9,stonefly,start,end,10609,fileExplorer,"(0,70)","(490,1080)",215011,code_report,"(490,70)","(1920,755)",1269.0,iTrace,"(490,755)","(1920,1080)",,,,,,276.0,23220.0,250385.0
+p10_firefly,p10,firefly,start,end,18043,fileExplorer,"(0,70)","(470,715)",85605,code,"(470,70)","(1920,525)",15168.0,report,"(470,525)","(1920,715)",4645.0,iTrace,"(0,715)","(1920,1080)",,7735.0,23142.0,154338.0
+p10_hornet,p10,hornet,start,4:00,4080,fileExplorer,"(0,70)","(470,750)",21297,code_report,"(470,70)","(1920,750)",360.0,AI,"(470,750)","(1920,1080)",,,,,,1504.0,1561.0,28802.0
+p10_hornet,p10,hornet,4:00,end,8794,fileExplorer,"(0,70)","(470,723)",127717,code,"(470,70)","(1920,539)",16265.0,report,"(470,539)","(1920,723)",6837.0,AI,"(0,723)","(1920,1080)",,469.0,16655.0,176737.0
+p10_ladybug,p10,ladybug,start,end,10630,fileExplorer,"(0,70)","(470,760)",99141,code,"(470,70)","(1920,625)",3300.0,report,"(470,625)","(1920,760)",3394.0,AI,"(0,760)","(1920,1080)",,564.0,7126.0,124155.0
+p10_ladybug_2,p10,ladybug,start,4:39,245,fileExplorer,"(0,70)","(470,576)",14537,code,"(470,70)","(1920,318)",13569.0,report,"(470,318)","(1920,576)",788.0,iTrace,"(0,576)","(1920,1080)",,149.0,4194.0,33482.0
+p10_ladybug_2,p10,ladybug,4:39,end,288,fileExplorer,"(0,70)","(470,576)",19100,code,"(470,70)","(1920,386)",9863.0,report,"(470,386)","(1920,576)",3158.0,iTrace,"(0,576)","(1920,1080)",,254.0,4609.0,37272.0
+p10_stonefly,p10,stonefly,start,9:27,3901,fileExplorer,"(0,70)","(470,760)",58774,code,"(470,70)","(1920,630)",601.0,report,"(470,630)","(1920,760)",907.0,iTrace,"(0,760)","(1920,1080)",,459.0,3399.0,68041.0
+p10_stonefly,p10,stonefly,9:27,end,900,fileExplorer,"(0,70)","(470,750)",79291,code,"(470,70)","(1920,515)",14846.0,report,"(470,515)","(1920,750)",2670.0,iTrace,"(0,750)","(1920,1080)",,717.0,13426.0,111850.0
+p11_firefly,p11,firefly,start,end,44893,fileExplorer,"(0,70)","(605,820)",168116,code_report,"(605,70)","(1920,820)",258.0,iTrace,"(0,820)","(1920,1080)",,,,,,365.0,6831.0,220463.0
+p11_ladybug,p11,ladybug,start,3:12,0,fileExplorer,"(0,70)","(470,825)",0,code_report,"(470,70)","(1920,825)",0.0,iTrace,"(0,825)","(1920,1080)",,,,,,,,
+p11_ladybug,p11,ladybug,3:12,7:35,0,fileExplorer,"(0,70)","(572,825)",0,code_report,"(572,70)","(1920,825)",0.0,iTrace,"(0,825)","(1920,1080)",,,,,,,,
+p11_ladybug,p11,ladybug,7:35,15:30,0,fileExplorer_code,"(0,70)","(719,825)",0,code_report,"(719,70)","(1920,825)",0.0,iTrace,"(0,825)","(1920,1080)",,,,,,,,
+p11_ladybug,p11,ladybug,15:30,end,0,fileExplorer,"(0,70)","(606,825)",0,code_report,"(606,70)","(1920,825)",0.0,iTrace,"(0,825)","(1920,1080)",,,,,,,,
+p11_stonefly,p11,stonefly,start,end,24777,fileExplorer_code,"(0,70)","(740,825)",133245,code_report,"(740,70)","(1920,825)",789.0,iTrace,"(0,825)","(1920,1080)",,,,,,309.0,13440.0,172560.0
+p11_weevil,p11,weevil,start,end,27797,fileExplorer,"(0,70)","(650,825)",39463,code_report,"(650,70)","(1920,825)",125.0,iTrace,"(0,825)","(1920,1080)",,,,,,238.0,3534.0,71157.0
+p11_weevil_2,p11,weevil,start,end,16704,fileExplorer,"(0,70)","(650,825)",108791,code_report,"(650,70)","(1920,825)",533.0,iTrace,"(0,825)","(1920,1080)",,,,,,239.0,9720.0,135987.0
+p12_ladybug,p12,ladybug,start,5:02,13472,fileExplorer,"(0,70)","(355,825)",18746,code_report,"(355,70)","(1920,825)",100.0,AI,"(0,825)","(1920,1080)",,,,,,144.0,3779.0,36241.0
+p12_ladybug,p12,ladybug,5:02,5:29,1798,fileExplorer_code,"(0,70)","(1248, 825)",149,code_report,"(1248,70)","(1920,825)",0.0,AI,"(0,825)","(1920,1080)",,,,,,0.0,1293.0,3240.0
+p12_ladybug,p12,ladybug,5:29,end,92874,fileExplorer_code,"(0,70)","(829,825)",43475,code_report,"(829, 70)","(1920,825)",572.0,AI,"(0,825)","(1920,1080)",,,,,,328.0,32819.0,170068.0
+p12_stonefly,p12,stonefly,start,2:59,1308,fileExplorer,"(0,70)","(829,820)",15965,code_report,"(829,70)","(1920,820)",278.0,AI,"(0,820)","(1920,1080)",,,,,,61.0,3871.0,21483.0
+p12_stonefly,p12,stonefly,2:59,end,55815,fileExplorer_code,"(0,70)","(960,755)",70527,code_report,"(960,70)","(1920,755)",14737.0,AI,"(0,755)","(1920,1080)",,,,,,265.0,68039.0,209383.0
+p12_silverfish,p12,silverfish,start,11:38,7676,fileExplorer_code,"(0,70)","(1085,755)",23537,code_report,"(1085,70)","(1920,755)",171.0,AI,"(0,755)","(1920,1080)",,,,,,80.0,52297.0,83761.0
+p12_silverfish,p12,silverfish,11:38,15:13,1225,fileExplorer_code,"(0,70)","(785,755)",7151,code_report,"(785,70)","(1920,755)",17.0,AI,"(0,755)","(1920,1080)",,,,,,4.0,17402.0,25799.0
+p12_silverfish,p12,silverfish,15:13,end,4785,fileExplorer_code,"(0,70)","(1100,755)",4820,code_report,"(1100,70)","(1920,755)",239.0,AI,"(0,755)","(1920,1080)",,,,,,130.0,32223.0,42197.0
+p13_ladybug,p13,ladybug,start,end,9113,fileExplorer,"(0,70)","(300,755)",88786,code_report,"(300,70)","(1920,755)",9782.0,AI,"(0,755)","(1920,1080)",,,,,,305.0,3982.0,111968.0
+p13_stonefly_1,p13,stonefly,start,end,73,fileExplorer,"(0,70)","(300, 755)",657,code_report,"(300,70)","(1920,755)",229.0,AI,"(0,755)","(1920,1080)",,,,,,0.0,37.0,996.0
+p13_stonefly_2,p13,stonefly,start,end,2671,fileExplorer,"(0,70)","(300, 755)",128517,code_report,"(300,70)","(1920,755)",30592.0,AI,"(0,755)","(1920,1080)",,,,,,370.0,7699.0,169849.0
+p13_silverfish,p13,silverfish,start,end,17482,fileExplorer,"(0,70)","(300, 755)",118333,code_report,"(300,70)","(1920,755)",37192.0,AI,"(0,755)","(1920,1080)",,,,,,991.0,5570.0,179568.0
+p13_praying_mantis,p13,praying_mantis,start,end,4913,fileExplorer,"(0,70)","(300, 755)",77310,code_report,"(300,70)","(1920,755)",7598.0,AI,"(0,755)","(1920,1080)",,,,,,189.0,1753.0,91763.0
+p13_weevil,p13,weevil,start,end,2657,fileExplorer,"(0,70)","(300, 755)",156386,code_report,"(300,70)","(1920,755)",4870.0,AI,"(0,755)","(1920,1080)",,,,,,646.0,8226.0,172785.0
+p14_ladybug,p14,ladybug,start,3:29,7003,fileExplorer,"(0,70)","(300, 755)",16247,code_report,"(300,70)","(1920,755)",51.0,AI,"(0,755)","(1920,1080)",,,,,,62.0,1719.0,25082.0
+p14_ladybug,p14,ladybug,3:29,end,94056,fileExplorer_code,"(0,70)","(780,710)",93430,code_report,"(780,70)","(1920,710)",15636.0,AI,"(0,710)","(1920,1080)",,,,,,919.0,47058.0,251099.0
+p14_stonefly,p14,stonefly,start,end,85521,fileExplorer_code,"(0,70)","(780,710)",82236,code_report,"(780,70)","(1920,710)",9690.0,AI,"(0,710)","(1920,1080)",,,,,,1198.0,42002.0,220647.0
+p14_silverfish,p14,silverfish,start,end,72051,fileExplorer_code,"(0,70)","(780,710)",83070,code_report,"(780,70)","(1920,710)",1945.0,AI,"(0,710)","(1920,1080)",,,,,,1374.0,32271.0,190711.0
+p15_ladybug,p15,ladybug,start,2:45,4771,fileExplorer,"(0,70)","(400,826)",10319,code_report,"(400,70)","(1920,826)",3458.0,AI,"(0,826)","(1920,1080)",,,,,,164.0,1090.0,19802.0
+p15_ladybug,p15,ladybug,2:45,end,26646,fileExplorer_code,"(0,70)","(738,770)",26735,code_report,"(738,70)","(1920,770)",25049.0,AI,"(0,770)","(1920,1080)",,,,,,742.0,6721.0,85893.0
+p15_stonefly,p15,stonefly,start,1:33,3583,fileExplorer,"(0,70)","(738,770)",7106,code_report,"(738,70)","(1920,770)",0.0,AI,"(0,770)","(1920,1080)",,,,,,0.0,259.0,10948.0
+p15_stonefly,p15,stonefly,1:33,end,60906,fileExplorer_code,"(0,70)","(800,770)",57322,code_report,"(800,70)","(1920,770)",19922.0,AI,"(0,770)","(1920,1080)",,,,,,853.0,16628.0,155631.0
+p15_praying_mantis,p15,praying_mantis,start,end,37491,fileExplorer_code,"(0,70)","(855,723)",36749,code_report,"(855,70)","(1920,723)",16597.0,AI,"(0,723)","(1920,1080)",,,,,,494.0,5463.0,96794.0
+p15_spider,p15,spider,start,2:47,7468,fileExplorer_code,"(0,70)","(800,780)",8517,code_report,"(800,70)","(1920,780)",2872.0,AI,"(0,780)","(1920,1080)",,,,,,39.0,1146.0,20042.0
+p15_spider,p15,spider,2:47,12:01,48597,fileExplorer_code,"(0,70)","(855,780)",1670,code_report,"(855,70)","(1920,780)",11831.0,AI,"(0,780)","(1920,1080)",,,,,,447.0,3933.0,66478.0
+p15_spider,p15,spider,12:01,12:23,46,fileExplorer_code,"(0,70)","(855,660)",71,code_report,"(855,70)","(1920,660)",2522.0,AI,"(0,660)","(1920,1080)",,,,,,1.0,0.0,2640.0
+p15_spider,p15,spider,12:23,end,10653,fileExplorer_code,"(0,70)","(855,890)",14872,code_report,"(855,70)","(1920,890)",474.0,AI,"(0,890)","(1920,1080)",,,,,,188.0,3051.0,29238.0
+p15_weevil,p15,weevil,start,end,51800,fileExplorer_code,"(0,70)","(855,723)",28877,code_report,"(855,70)","(1920,723)",791.0,AI,"(0,723)","(1920,1080)",,,,,,342.0,6409.0,88219.0
+p16_ladybug_1,p16,ladybug,start,end,0,fileExplorer,"(0,70)","(300,870)",130,code_report,"(300,70)","(1920,870)",0.0,AI,"(0,870)","(1920,1080)",,,,,,0.0,16.0,146.0
+p16_ladybug_2,p16,ladybug,start,0:06,7,fileExplorer,"(0,70)","(300,870)",635,code_report,"(300,70)","(1920,870)",64.0,AI,"(0,870)","(1920,1080)",,,,,,0.0,16.0,722.0
+p16_ladybug_2,p16,ladybug,0:06,end,3721,fileExplorer,"(0,70)","(300,870)",3730,code_report,"(300,70)","(1100,870)",838.0,code,"(1100,70)","(1920,870)",153.0,AI,"(0,870)","(1920,1080)",,347.0,482.0,9271.0
+p16_ladybug_3,p16,ladybug,start,0:36,109,fileExplorer,"(0,70)","(300,870)",1378,code_report,"(300,70)","(1100,870)",2738.0,code,"(1100,70)","(1920,870)",65.0,AI,"(0,870)","(1920,1080)",,2.0,30.0,4322.0
+p16_ladybug_3,p16,ladybug,0:36,end,551,fileExplorer,"(0,70)","(300,870)",21779,code_report,"(300,70)","(1035,870)",43072.0,code,"(1035,70)","(1920,870)",159.0,AI,"(0,870)","(1920,1080)",,333.0,2236.0,68130.0
+p16_ladybug_4,p16,ladybug,start,end,654,fileExplorer,"(0,70)","(300,870)",6416,code_report,"(300,70)","(1035,870)",368.0,code,"(1035,70)","(1920,870)",244.0,AI,"(0,870)","(1920,1080)",,22.0,1048.0,8752.0
+p16_stonefly_1,p16,stonefly,start,3:15,1780,fileExplorer,"(0,70)","(300,870)",6893,code_report,"(300,70)","(1100,870)",12948.0,code,"(1100,70)","(1920,870)",1192.0,AI,"(0,870)","(1920,1080)",,26.0,563.0,23402.0
+p16_stonefly_1,p16,stonefly,3:15,end,930,fileExplorer,"(0,70)","(300,735)",16745,code_report,"(300,70)","(1100,735)",61286.0,code,"(1100,70)","(1920,735)",13295.0,AI,"(0,735)","(1920,1080)",,485.0,2497.0,95238.0
+p16_stonefly_2,p16,stonefly,start,end,94,fileExplorer,"(0,70)","(300,735)",695,code_report,"(300,70)","(1100,735)",957.0,code,"(1100,70)","(1920,735)",651.0,AI_code,"(0,735)","(1920,1080)",,44.0,170.0,2611.0
+p16_stonefly_3,p16,stonefly,start,end,457,fileExplorer,"(0,70)","(300,735)",12627,code_report,"(300,70)","(1100,735)",2180.0,code,"(1100,70)","(1920,735)",6118.0,AI_code,"(0,735)","(1920,1080)",,94.0,1942.0,23418.0
+p16_firefly,p16,firefly,start,end,12704,fileExplorer,"(0,70)","(300,728)",124029,code_report,"(300,70)","(1920,728)",3234.0,AI,"(0,728)","(1920,1080)",,,,,,172.0,5410.0,145549.0
+p16_praying_mantis_1,p16,praying_mantis,start,1:29,23,fileExplorer,"(0,70)","(300,728)",9095,code_report,"(300,70)","(1920,728)",20.0,iTrace,"(0,728)","(1920,1080)",,,,,,11.0,218.0,9367.0
+p16_praying_mantis_1,p16,praying_mantis,1:29,end,78,fileExplorer,"(0,70)","(300,728)",302,code_report,"(300,70)","(1100,728)",0.0,code,"(1100, 728)","(1920,728)",509.0,AI_code,"(0,728)","(1920,1080)",,326.0,149.0,1364.0
+p16_praying_mantis_2,p16,praying_mantis,start,end,3163,fileExplorer,"(0,70)","(300,728)",9770,code_report,"(300,70)","(1100,728)",0.0,code,"(1100, 728)","(1920,728)",13406.0,AI_code,"(0,728)","(1920,1080)",,18670.0,1000.0,46009.0
+p16_praying_mantis_3,p16,praying_mantis,start,end,175,fileExplorer,"(0,70)","(300,728)",26406,code_report,"(300,70)","(1100,728)",1.0,code,"(1100, 728)","(1920,728)",676.0,AI_code,"(0,728)","(1920,1080)",,19818.0,2161.0,49237.0
+p16_spider,p16,spider,start,end,2298,fileExplorer,"(0,70)","(300,728)",10230,code_report,"(300,70)","(840,728)",0.0,code,"(840,728)","(1920,728)",2645.0,AI_report,"(0,728)","(1920,1080)",,30339.0,1589.0,47101.0
+p16_weevil_1,p16,weevil,start,end,67,fileExplorer,"(0,70)","(300,728)",3608,code_report,"(300,70)","(1920,728)",163.0,iTrace,"(0,728)","(1920,1080)",,,,,,16.0,192.0,4046.0
+p16_weevil_2,p16,weevil,start,end,1261,fileExplorer,"(0,70)","(300,728)",89721,code_report,"(300,70)","(1920,728)",857.0,iTrace,"(0,728)","(1920,1080)",,,,,,582.0,4873.0,97294.0
+p17_ladybug,p17,ladybug,start,1:50,7189,fileExplorer,"(0,70)","(305,735)",5956,code_report,"(305,70)","(1920,735)",23.0,AI,"(0,735)","(1920,1080)",,,,,,0.0,34.0,13202.0
+p17_ladybug,p17,ladybug,1:50,5:17,11743,fileExplorer,"(0,70)","(305,735)",4994,code,"(305,70)","(950,735)",4954.0,code_report,"(950,70)","(1920,735)",2224.0,AI,"(0,735)","(1920,1080)",,129.0,795.0,24839.0
+p17_ladybug,p17,ladybug,5:17,7:08,1824,fileExplorer,"(0,70)","(290,735)",6069,code,"(290,70)","(750,735)",4993.0,code_report,"(750,70)","(1920,735)",123.0,AI,"(0,735)","(1920,1080)",the code part on the left side is actually 2 code windows ,21.0,289.0,13319.0
+p17_ladybug,p17,ladybug,7:08,end,1473,fileExplorer,"(0,70)","(215,735)",101789,code,"(215,70)","(1200,735)",33809.0,code_report,"(1200,70)","(1920,735)",1192.0,AI,"(0,735)","(1920,1080)",the code part on the left side is actually 2 code windows ,138.0,4198.0,142599.0
+p17_stonefly,p17,stonefly,start,end,4111,fileExplorer,"(0,70)","(380,730)",117537,code_report,"(380,70)","(1920,730)",9195.0,AI,"(0,730)","(1920,1080)",,,,,,408.0,5095.0,136346.0
+p17_spider,p17,spider,start,end,4581,fileExplorer,"(0,70)","(380,730)",61330,code_report,"(380,70)","(1920,730)",103.0,iTrace,"(0,730)","(1920,1080)",,,,,,148.0,7397.0,73559.0
+p17_praying_mantis,p17,praying_mantis,start,end,11678,fileExplorer,"(0,70)","(380,730)",139555,code_report,"(380,70)","(1920,730)",10830.0,AI,"(0,730)","(1920,1080)",,,,,,568.0,4937.0,167568.0
+p17_weevil,p17,weevil,start,end,2049,fileExplorer,"(0,70)","(380,730)",128251,code_report,"(380,70)","(1920,730)",1114.0,iTrace,"(0,730)","(1920,1080)",,,,,,638.0,5395.0,137447.0
+p18_ladybug,p18,ladybug,start,2:22,0,fileExplorer,"(0,70)","(312,780)",0,code_report,"(312,70)","(1920,780)",0.0,AI,"(0,780)","(1920,1080)",,,,,,,,
+p18_ladybug,p18,ladybug,2:22,11:23,0,fileExplorer_code,"(0,70)","(505,790)",0,code_report,"(505,70)","(1920,790)",0.0,AI,"(0,790)","(1920,1080)",,,,,,,,
+p18_ladybug,p18,ladybug,11:23,end,0,fileExplorer_code,"(0,70)","(505,710)",0,code_report,"(505,70)","(1920,710)",0.0,AI,"(0,710)","(1920,1080)",,,,,,,,
+p18_stonefly,p18,stonefly,start,5:50,2296,fileExplorer,"(0,70)","(505,720)",33031,code_report,"(505,70)","(1920,720)",2348.0,AI,"(0,720)","(1920,1080)",,,,,,86.0,4240.0,42001.0
+p18_stonefly,p18,stonefly,5:50,end,392,fileExplorer,"(0,70)","(505,550)",62949,code_report,"(505,70)","(1920,1080)",84.0,AI,"(0,550)","(505,1080)",,,,,,343.0,55117.0,118885.0
+p18_silverfish,p18,silverfish,start,16:09,3355,fileExplorer,"(0,70)","(505,550)",72739,code_report,"(505,70)","(1920,1080)",1324.0,AI,"(0,550)","(505,1080)",,,,,,76.0,38783.0,116277.0
+p18_silverfish,p18,silverfish,16:09,16:40,0,fileExplorer_code,"(0,70)","(740,550)",0,code_report,"(740,70)","(1920,1080)",0.0,AI,"(0,550)","(740,1080)",,,,,,0.0,3723.0,3723.0
+p18_silverfish,p18,silverfish,16:40,end,167,fileExplorer,"(0,70)","(580,550)",23164,code_report,"(580,70)","(1920,1080)",109.0,AI,"(0,550)","(580,1080)",,,,,,124.0,55338.0,78902.0
+p18_spider,p18,spider,start,10:03,460,fileExplorer_code,"(0,70)","(580,550)",24281,code_report,"(580,70)","(1920,1080)",728.0,AI,"(0,550)","(580,1080)",,,,,,36.0,46855.0,72360.0
+p18_spider,p18,spider,10:03,end,242,fileExplorer_code,"(0,70)","(700,550)",20545,code_report,"(700,70)","(1920,1080)",139.0,AI,"(0,550)","(700,1080)",,,,,,159.0,13856.0,34941.0
+p19_ladybug_1,p19,ladybug,start,end,9358,fileExplorer,"(0,70)","(330,800)",20604,code_report,"(330,70)","(1920,800)",85.0,AI,"(0,800)","(1920,1080)",,,,,,1119.0,14286.0,45452.0
+p19_ladybug_2,p19,ladybug,start,end,347,fileExplorer,"(0,70)","(330,800)",54724,code_report,"(330,70)","(1920,800)",6458.0,AI,"(0,800)","(1920,1080)",,,,,,1307.0,4131.0,66967.0
+p19_stonefly,p19,stonefly,start,end,1751,fileExplorer,"(0,70)","(330,800)",33533,code_report,"(330,70)","(1920,800)",190.0,iTrace,"(0,800)","(1920,1080)",,,,,,476.0,2294.0,38244.0
+p19_silverfish,p19,silverfish,start,end,8772,fileExplorer,"(0,70)","(330,800)",87600,code_report,"(330,70)","(1920,800)",494.0,iTrace,"(0,800)","(1920,1080)",,,,,,321.0,8353.0,105540.0
+p19_spider,p19,spider,start,end,1146,fileExplorer,"(0,70)","(330,800)",35722,code_report,"(330,70)","(1920,800)",4626.0,AI,"(0,800)","(1920,1080)",,,,,,126.0,4183.0,45803.0
+p19_firefly,p19,firefly,start,end,3679,fileExplorer,"(0,70)","(330,800)",46759,code_report,"(330,70)","(1920,800)",191.0,iTrace,"(0,800)","(1920,1080)",,,,,,1615.0,10338.0,62582.0
+p19_hornet,p19,hornet,start,end,7446,fileExplorer,"(0,70)","(330,800)",41641,code_report,"(330,70)","(1920,800)",302.0,iTrace,"(0,800)","(1920,1080)",,,,,,537.0,6170.0,56096.0
+p19_weevil,p19,weevil,start,end,702,fileExplorer,"(0,70)","(330,800)",43976,code_report,"(330,70)","(1920,800)",2743.0,AI,"(0,800)","(1920,1080)",,,,,,279.0,12028.0,59728.0
+p19_praying_mantis,p19,praying_mantis,start,end,10555,fileExplorer,"(0,70)","(330,800)",66328,code_report,"(330,70)","(1920,800)",417.0,iTrace,"(0,800)","(1920,1080)",,,,,,324.0,28785.0,106409.0
+p20_ladybug_1,p20,ladybug,start,end,136,fileExplorer,"(0,70)","(390,840)",630,code_report,"(390,70)","(1920,840)",149.0,AI,"(0,840)","(1920,1080)",,,,,,7.0,60.0,982.0
+p20_ladybug_2,p20,ladybug,start,end,9121,fileExplorer,"(0,70)","(390,840)",6945,code_report,"(390,70)","(1920,840)",187.0,AI,"(0,840)","(1920,1080)",,,,,,310.0,362.0,16925.0
+p20_ladybug_3,p20,ladybug,start,0:55,3907,fileExplorer,"(0,70)","(390,840)",2551,code_report,"(390,70)","(1920,840)",12.0,AI,"(0,840)","(1920,1080)",,,,,,2.0,130.0,6602.0
+p20_ladybug_3,p20,ladybug,0:55,end,10334,fileExplorer_code,"(0,70)","(640,840)",3760,code_report,"(640,70)","(1920,840)",708.0,AI,"(0,840)","(1920,1080)",,,,,,289.0,320.0,15411.0
+p20_ladybug_4,p20,ladybug,start,end,6273,fileExplorer_code,"(0,70)","(640,840)",81035,code_report,"(640,70)","(1920,840)",744.0,AI,"(0,840)","(1920,1080)",,,,,,302.0,4017.0,92371.0
+p20_stonefly_1,p20,stonefly,start,end,5475,fileExplorer,"(0,70)","(640,840)",45833,code_report,"(640,70)","(1920,840)",627.0,iTrace,"(0,840)","(1920,1080)",,,,,,282.0,2320.0,54537.0
+p20_stonefly_2,p20,stonefly,start,end,6667,fileExplorer,"(0,70)","(640,840)",148660,code_report,"(640,70)","(1920,840)",1476.0,iTrace,"(0,840)","(1920,1080)",,,,,,361.0,9612.0,166776.0
+p20_spider,p20,spider,start,end,4802,fileExplorer,"(0,70)","(640,840)",95712,code_report,"(640,70)","(1920,840)",1344.0,iTrace,"(0,840)","(1920,1080)",,,,,,594.0,5622.0,108074.0
+p21_stonefly_1,p21,stonefly,start,end,3192,fileExplorer,"(0,70)","(330,750)",34014,code_report,"(330,70)","(1920,750)",8625.0,AI,"(0,750)","(1920,1080)",,,,,,157.0,3315.0,49303.0
+p21_stonefly_2,p21,stonefly,start,end,8514,fileExplorer,"(0,70)","(330,750)",143792,code_report,"(330,70)","(1920,750)",645.0,iTrace,"(0,750)","(1920,1080)",,,,,,152.0,11387.0,164490.0
+p21_hornet,p21,hornet,start,end,45662,fileExplorer,"(0,70)","(350,750)",180717,code_report,"(350,70)","(1920,750)",2915.0,iTrace,"(0,750)","(1920,1080)",,,,,,158.0,8198.0,237650.0
+p21_spider,p21,spider,start,end,3520,fileExplorer,"(0,70)","(350,750)",63552,code_report,"(350,70)","(1920,750)",357.0,iTrace,"(0,750)","(1920,1080)",,,,,,306.0,6199.0,73934.0

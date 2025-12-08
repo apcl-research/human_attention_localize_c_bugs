@@ -6,7 +6,7 @@
 - [Replication Repository and Online Appendix for "Human Attention During Localization of Memory Bugs in C Programs"](#replication-repository-and-online-appendix-for-human-attention-during-localization-of-memory-bugs-in-c-programs)
 - [1 README Contents: overview of sections of this file](#1-readme-contents-overview-of-sections-of-this-file)
 - [2 Repository Organization: description of contents of each branch](#2-repository-organization-description-of-contents-of-each-branch)
-- [3 Replication Procedure for Study: description of how to replicate the data analysis](#3-replication-procedure-for-study-description-of-how-to-replicate-the-data-analysis)
+- [3 Replication Procedure for Study](#3-replication-procedure-for-study)
   - [3.1 Software Setup](#31-software-setup)
   - [3.2 Setup for Session](#32-setup-for-session)
   - [3.3 Session with Participant](#33-session-with-participant)
@@ -35,7 +35,7 @@ This repository is organized into branches:
 - `analyze`: contains the data analysis scripts and intermediate versions of data 
 </details>
 
-# 3 Replication Procedure for Study: description of how to replicate the data analysis
+# 3 Replication Procedure for Study
 ## 3.1 Software Setup  
 <details>
   <summary><strong>Expand Section</strong></summary>
@@ -47,11 +47,14 @@ This repository is organized into branches:
   - Core - v0.2.0 
   - Plugin - v0.2.0 
   - Toolkit - v0.2.2
+  - ScreenRecording - v0.2.0
   4. Add the iTrace plugin to Eclipse following the instructions on the iTrace wiki: https://github.com/iTrace-Dev/iTrace-Core/wiki/Getting-Started-with-iTrace-Core 
   5. Install the Remain AI Chat Plugin for Eclipse: https://marketplace.eclipse.org/content/remain-ai-chat-chatgpt#details 
-  6. Clone this repository 
-  7. Switch to the `instructions` branch 
-  8. Run the `get_repos.py` script to download the buggy versions of source code for each bug 
+  6. We use OBS Studio with the iTrace-ScreenRecording plugin. Install OBS: https://obsproject.com/ 
+  7. Install and setup the iTrace-ScreenRecording: https://github.com/iTrace-Dev/iTrace-ScreenRecording#readme 
+  8. Clone this repository 
+  9. Switch to the `instructions` branch 
+  10. Run the `get_repos.py` script to download the buggy versions of source code for each bug 
 </details>
 
 ## 3.2 Setup for Session 
@@ -68,6 +71,7 @@ This repository is organized into branches:
 8. Open iTrace core; minimize command prompt that opens 
 9. In Eclipse, in the iTrace plugin window, click "Connect to Core" 
 10. Create folders to save iTrace data. It is important to create a new folder for each task because the mouse click data from iTrace saves to the same file name every time. 
+11. Open OBS and ensure iTrace-Recorder.py is loaded in the scripts. 
 </details>
 
 ## 3.3 Session with Participant 
@@ -88,18 +92,19 @@ This repository is organized into branches:
 python .\prompt.py --interval 5.0 --csv {participant_name}.csv
 ```
 11. Participant opens `StudyProcedure.md` and starts  
-12. Repeat steps 13-17 until time is up
+12. Repeat steps 13-18 until time is up
+  
+13. In OBS > Scripts, click "Connect to Core" 
+14. In the Session Setup tab of iTrace-core, fill in Task Name, Researcher Name, and Participant ID in the iTrace-core window. Choose a Data Directory.In the iTrace Tracking tab, select Tobii Pro Fusion as the tracker, check the boxes for "Record with DejaVu" and "Enable Screen Recording",  calibrate, and then start iTrace-core.  
+15. Start 30 minute timer for bug 
+16. Participant opens bug report and works on bug 
+17. After 30 minutes, ask participant to move on to next bug if not done.
+18. When participant is done with this bug, stop iTrace-core. In the Data Directory, you should see 4 files: `itrace_core-*`, `itrace_eclipse-*`, `out.csv`, and `screen_rec-*` 
 
-13. In the Session Setup tab of iTrace-core, fill in Task Name, Researcher Name, and Participant ID in the iTrace-core window. Choose a Data Directory.In the iTrace Tracking tab, select Tobii Pro Fusion as the tracker, check the boxes for "Record with DejaVu" and "Enable Screen Recording",  calibrate, and then start iTrace-core.  
-14. Start 30 minute timer for bug 
-15. Participant opens bug report and works on bug 
-16. After 30 minutes, ask participant to move on to next bug if not done.
-17. When participant is done with this bug, stop iTrace-core. In the Data Directory, you should see 4 files: `itrace_core-*`, `itrace_eclipse-*`, `out.csv`, and `screen_rec-*` 
-
-18. When participant finishes bug that is closest to the 2 hour mark, tell them that they are done. 
-19. Stop `prompt.py` script which has been running the whole time 
-20. Conduct post-study questionnaire
-21. Pay participant 
+19. When participant finishes bug that is closest to the 2 hour mark, tell them that they are done. 
+20. Stop `prompt.py` script which has been running the whole time 
+21. Conduct post-study questionnaire
+22. Pay participant 
 </details>
 
 ## 3.4 After Participant Leaves 
@@ -119,8 +124,12 @@ Switch to the `analyze` branch
   <summary><strong>Expand Section</strong></summary>
 
 ### 4.1.1 Eye Tracking Data 
-#### Note: Skip steps 1-2 if using study's original data which is included in this repository, `analyze` branch, `only_eclipse_data` folder. Note, you many need to unzip some large files.  
-1. Reorganize data to make sure there are no nested folders (iTrace-Toolkit does not handle nested folder structures well). You will see that the folder organization of `only_eclipse_data` in the `analyze` branch has been modified from `main`'s version to accommodate this. 
+> [!NOTE]
+> - You may skip all of these steps if you would like to use our generated .pkl files located at this Google Drive Link: https://drive.google.com/drive/folders/1eTnnvSOuRE0g94TNWKcHzAgez_4G1xa9?usp=drive_link    
+> - You may skip to step 6 if you would like to use our generated databases located at this Google Drive Links: https://drive.google.com/drive/folders/1_D4LoZXNVAaxDzO2TuDV_Dc0lOmk_dOm?usp=drive_link    
+> - Skip to step 3 if using study's original data which is included in this repository, `analyze` branch, `only_eclipse_data` folder. Note, you many need to unzip some large files.  
+
+1. Reorganize data to make sure there are no nested folders (iTrace-Toolkit does not handle nested folder structures well). You will see that some of the folder organization of `only_eclipse_data` in the `analyze` branch has been modified from `main`'s version to accommodate this. In situations where there are nested folders in `only_eclipse_data` in the `analyze` branch, these folders are used to create separate databases. 
 2. Convert all relevant references to .md files to references to .c files in the iTrace/eclipse .xml files. Use `convert_md_to_c_in_eclipse_xml.py` 
 #### Note: This is the state that the files in `only_eclipse_data` in the `analyze` branch are in 
 #### Note: You may skip steps 3-4 if you would like to use our generated srcML files located at this Google Drive Link: https://drive.google.com/drive/folders/1Y4HQGYNrKKFCap6LzHGmnmCDMB3xlQEa?usp=drive_link 
@@ -131,7 +140,7 @@ Command:
 srcml --verbose --archive --position path\to\bug\directory path\to\instructions\directory -o {bug_name}_{participant_id}.xml
 ```
 
-#### Note: You may skip step 5 if you would like to use our generated databases located at this Google Drive Links: https://drive.google.com/drive/folders/1_D4LoZXNVAaxDzO2TuDV_Dc0lOmk_dOm?usp=drive_link
+
 5. For each bug subfolder for each participant, use iTrace-Toolkit to generate database (.db3 files; you should have at least one per task). Note: We excluded folders that contained data for just a few seconds of tracking. These files are from cases where the eye tracker was started/stopped very quickly during configuration. 
     - create new database 
     - import folder containing .xml eclipse data 
@@ -140,8 +149,8 @@ srcml --verbose --archive --position path\to\bug\directory path\to\instructions\
     - you may need to individually create .xmls for files that are not found in the first round of mapping tokens 
     - generate fixations. set fixation settings to Fixation Filter = IVT, Velocity Threshold = 50, Duration (milliseconds) 80. (these are the default values for IVT)
 
-#### Note: You may skip step 6 if you would like to use our generated .pkl files located at this Google Drive Link: https://drive.google.com/drive/folders/1eTnnvSOuRE0g94TNWKcHzAgez_4G1xa9?usp=drive_link 
-6. Run `extractfixations.py` to generate the .pkl files. Note: there is extra logic in this script to remove data from participant 8's firefly task because the eye tracker was not stopped at the end of the task. 
+
+6. Run `extractfixations.py` to generate the .pkl files. Note: there is extra logic in this script to remove data from participant 8's firefly task because the eye tracker was not stopped at the end of the task, so you may want to remove this logic if using your own data. 
 7. You can run `unpickle.py` to get a .csv version of a .pkl file
 
 ### 4.1.2 Region Coordinates Data 
@@ -159,7 +168,7 @@ srcml --verbose --archive --position path\to\bug\directory path\to\instructions\
 1. If you are conducting your own study, you will have the `.json` files saved from the Remain AI Chat Window in Eclipse for each participant 
 2. For our study, please refer to this file in Google Drive: https://docs.google.com/spreadsheets/d/1HsdA5WA44Ezjk6fC90fZqoEeKMscgR-MtqGbvv1KHUs/edit?usp=drive_link. Note that for some participants, we successfully saved the `.json` file while for others, the number of AI queries is confirmed by region coordinate data, watching the screen recordings, and the study administrator's notes. 
 
-### 4.1.4 Popup Data (Table 6)
+### 4.1.4 Popup Data (Table 5)
 There is a .csv file for each participant documenting when the attention survey popped up and what the participant's response was. The aggregated data is here: https://docs.google.com/spreadsheets/d/1giubGglxVcxWsRzYHPYchLtC9wkwCA8O/edit?usp=drive_link&ouid=100587885798417241681&rtpof=true&sd=true. 
 
 ### 4.1.5 Bug Repository Data (Table 1)
@@ -171,53 +180,62 @@ Please see the `important_spreadsheets\Appendix_Bug_and_Grading_Information.xlsx
   <summary><strong>Expand Section</strong></summary>
   
 1. Run `get_fixation_stats_success_breakdown.py` to get the basic metrics like fixation count, number of unique lines, etc. (Table 7)
-2. Run `create_graphs.py`. You need to run `get_fixation_stats_success_breakdown.py` first though because the directories that are the outputs of `get_fixation_stats_success_breakdown.py` are the inputs to `create_graphs.py`. (Table 8, Table 9, Figure 3, Figure 4)
-3. Run `get_region_times.py` to get the data used to calculate the percentages for Table 10. The percentages are calculated manually from the output. See our spreadsheet here: `important_spreadsheets/20250413_162432_gazes_gaze_counts_per_region_percent.csv` 
-4. Create the `fixations_percent.csv` file (pre-work for Figure 5)
+2. Run `create_graphs.py`. You need to run `get_fixation_stats_success_breakdown.py` first though because the directories that are the outputs of `get_fixation_stats_success_breakdown.py` are the inputs to `create_graphs.py`. (Table 8, Table 9, Figure 5a, Figure 5b)
+3. Run `get_region_times.py` to get the data used to calculate the percentages for Table 10. The percentages are calculated manually from the output. See our spreadsheet here: `important_spreadsheets/20251123_205922_gazes_gaze_counts_per_region.xlsx` 
+4. Create the `fixations_percent.csv` file (pre-work for Figure 6)
 - copy the `{timestamp}_fixations_data_fcount.csv` file from the `{timestamp}_get_fixation_stats_{timestamp}_fixations_outputs` directory to a new directory. I called this directory `code_percent` 
 - copy the `{timestamp}_fixations_no_md_data_fcount.csv` from the `{timestamp}_get_fixation_stats_{timestamp}_fixations_no_md_outputs` directory to the same directory `code_percent` 
 - make a copy of the `{timestamp}_fixations_data_fcount.csv` file in the `code_percent` directory and rename it `{timestamp}_fixations_data_fcount_md_vs_no_md.csv` 
 - copy column C from `{timestamp}_fixations_no_md_data_fcount.csv` to column D of `{timestamp}_fixations_data_fcount_md_vs_no_md.csv` 
 - in column E of `{timestamp}_fixations_data_fcount_md_vs_no_md.csv`, enter the formula for `column C - column D`
 - in column F of `{timestamp}_fixations_data_fcount_md_vs_no_md.csv`, enter the formula for `1 - column E` 
-5. Run `create_specified_plot.py` with the `{timestamp}_fixations_data_fcount_md_vs_no_md.csv` to generate the plot for percent fixations on code per bug (Figure 5 in paper)
-6. Run `count_unique_per_accuracy.py` to generate Figure 8 (stacked bar chart) and all the histograms in Figure 2. 
-7. Run `get_answer_fixations.py` to get the data about when participants looked at the correct buggy line. These outputs are used for Figure 6, Figure 7, Table 11, the box plots for Table 11, Figure 9, Figure 10, Figure 11, and Figure 12. 
-8. To create Figure 7 and Table 11, the data outputted from `get_fixation_stats_success_breakdown.py` and `get_answer_fixations.py` were combined into 1 spreadsheet: `20250413_165253_fixations_no_md_next_fixation_similarity_percent_2_4 (1).xlsx` and XLSTAT was used for the statistical tests. See the spreadsheet for more details. You can also find these numbers in the outputs from `get_fixation_stats_success_breakdown.py` and `get_answer_fixations.py`. 
-9. The box plots that go with Table 11 are in the outputs from `get_fixation_stats_success_breakdown.py` and `get_answer_fixations.py`. 
-10. Run `pearson.py` to get the numbers for Table 4. 
-11. The numbers for Table 5 come from the `important_spreadsheets\Appendix_Bug_and_Grading_Information.xlsx` in this branch. 
+5. Run `create_specified_plot.py` with the `{timestamp}_fixations_data_fcount_md_vs_no_md.csv` to generate the plot for percent fixations on code per bug (Figure 6 in paper)
+6. Run `count_unique_per_accuracy.py` to generate Figure 11 (stacked bar chart) and all the histograms in Figure 3. 
+7. Run `get_answer_fixations.py` to get the data about when participants looked at the correct buggy line. These outputs are used for Figure 7, Figure 8, Table 11, the box plots for Figure 9, and Figure 10. 
+8. To create Figure 8, the data outputted from `get_fixation_stats_success_breakdown.py` and `get_answer_fixations.py` were combined into 1 spreadsheet: `20251123_205922_fixations_no_md_next_fixation_similarity_percent_line_chart.xlsx`. 
+9. To create Table 11, data created by `get_fixation_stats_success_breakdown.py` and `get_answer_fixations.py` was used. 
+10. The box plots in Figure 9 are outputs from `get_fixation_stats_success_breakdown.py` and `get_answer_fixations.py`. 
+11. Run `pearson.py` to get the numbers for Table 4. 
+12. The numbers for Table 6 come from the `important_spreadsheets\Appendix_Bug_and_Grading_Information.xlsx` in the `analyze` branch. 
 </details>
 
 ## 4.3 Table/Figures Recap 
 <details>
   <summary><strong>Expand Section</strong></summary>
 
-- `p11_firefly`: The participant did not complete this task within 30 minutes, so they don't have scores for confidence/difficulty and received a score of 0 for accuracy. This task is not included when comparing successful and failure tasks. However, the eye tracking data from this task is included in the big-picture eye tracking metrics. 
-- `p11_ladybug`: The eye tracker was not started successfully at the beginning of this task, so we do not have eye tracking data for this task. However, we do have accuracy/difficulty/confidence scores, so those are included, but because there is no eye tracking data, it is not possible to include it in the eye tracking metrics. 
+- `p11_firefly` and `p13_praying_mantis`: These participants did not complete this task within 30 minutes, so they don't have scores for confidence/difficulty and received a score of 0 for accuracy. These task is not included when comparing successful and failure tasks. However, the eye tracking data from these task is included in the big-picture eye tracking metrics. 
+- `p11_ladybug` and `p18_ladybug`: The eye tracker did not record successfully for these tasks. However, we do have accuracy/difficulty/confidence scores, so those are included, but because there is no eye tracking data, it is not possible to include it in the eye tracking metrics. 
+- `p21_ladybug` and `p20_silverfish`: During these tasks, the participants looked at the wrong code, so these tasks are not included in any analysis. 
+
 ### 4.3.1 Tables 
-- Table 1: see `important_spreadsheets\Appendix_Bug_and_Grading_Information.xlsx`
-- Table 2: see `important_spreadsheets\Appendix_Bug_and_Grading_Information.xlsx`
-- Table 3: see `important_spreadsheets\Appendix_Bug_and_Grading_Information.xlsx`
-- Table 4: `pearson.py` and accuracy data (includes p11_ladybug and p11_firefly)
-- Table 5: 
+Where does each table come from? 
+- Table 1: Statistics for C libraries: see `important_spreadsheets\Appendix_Bug_and_Grading_Information.xlsx`
+- Table 2: Rubric for grading "what" questions
+- Table 3: Rubric for grading "where" questions 
+- Table 4: Score correlations: `pearson.py` and accuracy data (includes `p11_ladybug`, `p18_ladybug`, `p13_praying_mantis`, and `p11_firefly`)
+- Table 5: Self-Reported Attention Level Popup Options: see https://docs.google.com/spreadsheets/d/1giubGglxVcxWsRzYHPYchLtC9wkwCA8O/edit?usp=sharing&ouid=100587885798417241681&rtpof=true&sd=true 
+- Table 6: Average scores per bug + average duration + issue and bug information 
   - program information and scores comes from `important_spreadsheets\Appendix_Bug_and_Grading_Information.xlsx`
-  - time comes from `important_spreadsheets/duration_from_notes_seconds.csv` (includes p11_firefly, but not p11_ladybug)
-- Table 6: You can see the options in `prompt.py` in the `instructions` branch, and the Percentages are calculated on this spreadsheet: `important_spreadsheets/20250413_162432_gazes_gaze_counts_per_region_percent.csv` which is an aggregation of the .csvs from each participant (located on each participant's branch)
-- Table 7: `get_fixation_stats_success_breakdown.py` outputs (metrics run on code-only/no_md version of data, includes p11_firefly, but not p11_ladybug)
-- Table 8-9: `create_graphs.py` runs `topx_contain_ypercent_fixations_log.py` which generates this data (metrics run on code-only/no_md version of data, includes p11_firefly, but not p11_ladybug)
-- Table 10: AI Queries can be see here: https://docs.google.com/spreadsheets/d/1HsdA5WA44Ezjk6fC90fZqoEeKMscgR-MtqGbvv1KHUs/edit?usp=drive_link, and percentages calculated on this sheet important_spreadsheets/20250413_162432_gazes_gaze_counts_per_region_percent.csv which is outputted from `get_region_times.py` (includes p11_ladybug and p11_firefly)
-- Table 11: Data can be seen on `important_spreadsheets/20250413_165253_fixations_no_md_next_fixation_similarity_percent_2_4 (1).xls`, and that data comes from `get_fixation_stats_success_breakdown.py` and `get_answer_fixations.py` where you can also see the Table 11 numbers in the outputs. (metrics run on code-only/no_md version of data, does not include p11_firefly or p11_ladybug)
+  - time comes from `important_spreadsheets/duration_from_notes_no_p11firefly_no_p13mantis_seconds.xlsx` (includes `p11_ladybug` and `p18_ladybug`, but not `p11_firefly` and `p13_praying_mantis` because these are not included in the score averages)
+- Table 7: Gaze metrics per bug: `get_fixation_stats_success_breakdown.py` outputs (metrics run on code-only/no_md version of data, includes `p11_firefly` and `p13_praying_mantis`, but not `p11_ladybug` and `p18_ladybug`)
+- Table 8-9: Functions/Lines in top 75%:  `create_graphs.py` runs `topx_contain_ypercent_fixations_log.py` which generates this data (metrics run on code-only/no_md version of data, includes `p11_firefly` and `p13_praying_mantis`, but not `p11_ladybug` and `p18_ladybug`)
+- Table 10: Number of AI Queries and percent gazes at each region: AI Queries can be see here: https://docs.google.com/spreadsheets/d/1HsdA5WA44Ezjk6fC90fZqoEeKMscgR-MtqGbvv1KHUs/edit?usp=drive_link and includes all tasks, and percentages calculated on this sheet `important_spreadsheets/20251123_205922_gazes_gaze_counts_per_region.xlsx` which is outputted from `get_region_times.py` (includes `p11_firefly` and `p13_praying_mantis`, but not `p11_ladybug` and `p18_ladybug`)
+- Table 11: Comparing low and high groups: Data comes from `get_fixation_stats_success_breakdown.py` and `get_answer_fixations.py`. (metrics run on code-only/no_md version of data, does not include `p11_firefly`, `p13_praying_mantis`, `p11_ladybug`, and `p18_ladybug`)
 
 ### 4.3.2 Figures 
-- Figure 1: This is a screenshot of the interface taken by the study administrator 
-- Figure 2: Output from `count_unique_per_accuracy.py` (includes p11_ladybug and p11_firefly)
-- Figure 3-4: `create_graphs.py` runs `topx_contain_ypercent_fixations_log.py` which generates these graphs (only code, no_md, includes p11_firefly, but not p11_ladybug)
-- Figure 5: `create_specified_plot.py` with the `{timestamp}_fixations_data_fcount_md_vs_no_md.csv` (includes p11_firefly, but not p11_ladybug)
-- Figure 6: `get_answer_fixations.py` (includes p11_firefly, but not p11_ladybug)
-- Figure 7: See `important_spreadsheets/20250413_165253_fixations_no_md_next_fixation_similarity_percent_2_4 (1).xls`. The file in the paper is a .pdf version of this chart. 
-- Figure 8: `count_unique_per_accuracy.py` (includes p11_ladybug and p11_firefly)
-- Figures 9-12: `get_answer_fixations.py` (includes p11_firefly, only code)
+Where does each figure come from? 
+- Figure 1: This is a screenshot of the `ladybug` bug report shown to participants, taken by the study administrator. 
+- Figure 2: This is a screenshot of the interface taken by the study administrator 
+- Figure 3: Output from `count_unique_per_accuracy.py` (includes all tasks)
+- Figure 4: Screenshot of changes to committed to fix `ladybug` in official repository. 
+- Figure 5: Output from `create_graphs.py` runs `topx_contain_ypercent_fixations_log.py` which generates these graphs (only code, no_md, includes `p11_firefly` and `p13_praying_mantis`, but not `p11_ladybug` and `p18_ladybug`)
+- Figure 6: Output from `create_specified_plot.py` with the `{timestamp}_fixations_data_fcount_md_vs_no_md.csv` (includes `p11_firefly` and `p13_praying_mantis`, but not `p11_ladybug` and `p18_ladybug`)
+- Figure 7: Output from `get_answer_fixations.py` (includes `p11_firefly` and `p13_praying_mantis`, but not `p11_ladybug` and `p18_ladybug`)
+- Figure 8: See `important_spreadsheets/20251123_205922_fixations_no_md_next_fixation_similarity_percent_line_chart.xlsx`(code only, no_md, does not include `p11_firefly`, `p13_praying_mantis`, `p11_ladybug`, and `p18_ladybug`)
+- Figure 9: Combine boxplots outputted from `get_fixation_stats_success_breakdown.py` and `get_answer_fixations.py` (only code/no_md, does not include `p11_firefly`, `p13_praying_mantis`, `p11_ladybug`, and `p18_ladybug`). 
+- Figure 10: Output from `get_answer_fixations.py` (only code)
+- Figure 11: Output from `count_unique_per_accuracy.py` (includes all tasks)
+
 </details>
 
 # 5 More Details on `analyze` branch and Scripts

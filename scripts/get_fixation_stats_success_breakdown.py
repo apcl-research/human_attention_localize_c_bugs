@@ -528,8 +528,7 @@ def get_stats(input_filename, accuracy_file, output_dir, input_stem, skip_dnf=Fa
 
     # NOTE: using these values for confidence too for now 
     success = 4 # 4 and 5 are success 
-    # 3 is neither 
-    fail = 2 # 1 and 2 are fail 
+    fail = 3 # 1, 2, and 3 are fail 
 
     
     for session in data:

@@ -762,7 +762,7 @@ def main():
     parser.add_argument("--skip_dwell", action="store_true", help="Skip getting dwell information")
     parser.add_argument("--low_threshold", type=int, default=2, help="Unsuccessful Accuracy Threshold (default: 2)")
     parser.add_argument("--high_threshold", type=int, default=4, help="Successful Accuracy Threshold (default: 4)")
-    parser.add_argument("--skip_dnf", default=False, action="store_true", help="Don't include p11  and p13 praying_mantis data because they did not finish the task")
+    parser.add_argument("--skip_dnf", default=False, action="store_true", help="Don't include p11 firefly and p13 praying_mantis data because they did not finish the task")
     
     # TODO: add ability to specify previously computed .csv file?
     # TODO: --includes_md what was I intending to use this flag for? 

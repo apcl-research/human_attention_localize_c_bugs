@@ -18,27 +18,31 @@
 
 - `figs` folder 
 - `important_spreadsheets` folder 
-- `old_scripts` folder 
 - `only_eclipse_data` folder 
 - `scripts` folder 
 - `README.md`
 
 ### 5.1.1 `figs` 
-- `angle_percentage_diagram.png`: diagram showing the ranking of directional fixation change (direction have to move eyes to get from one fixation to the next)
-- `table11boxplots.pdf` and `table11boxplots.svg` Figure that goes with Table 11 in paper 
-- `regression_euclidean.pdf` and `regression_euclidean` Figure 7 in paper 
-- 
+- `boxplots.svg` Figure 9 in paper 
+- `ladybug_fix.png` Figure 4 in paper 
+- `ladybug_report_screenshot.png` Figure 1 in paper 
+- `regression_rate_euclidean_distance_line_chart.pdf` and `regression_rate_euclidean_distance_line_chart.svg` Figure 8 in paper 
+
+ 
 ### 5.1.2 `important_spreadsheets`
-- `20250413_162432_gazes_gaze_counts_per_region_percent.csv`: output from region script with AI percentages calculated manually 
-- `20250413_165253_fixations_no_md_next_fixation_similarity_percent_2_4 (1).xls`
-- `Appendix_Bug_and_Grading_Information.xlsx`: contains information about each bug (repository, issue number, commit numbers); contains task set for each participant; contains scores and grading
+
+- `20251123_205922_fixations_no_md_next_fixation_similarity_percent_line_chart.xlsx`: Used to create Figure 8 in paper 
+- `20251123_205922_gazes_gaze_counts_per_region.csv`: output from region script 
+- `20251123_205922_gazes_gaze_counts_per_region.xlsx`: output from region script with region percentages calculated manually for Table 10 
+- `accuracy_scores_no_p11firefly_no_p13mantis.csv`: same as `accuracy_scores.csv`, but with `p11_firefly` and `p13_praying_mantis` task removed (see Section 3.7 Threats to Validity)
+- `accuracy_scores_with_ai.csv`: same as `accuracy_scores.csv` with additional information about how many AI queries were made during each task 
 - `accuracy_scores.csv`: mapping from task to accuracy, confidence, difficulty scores 
-- `accuracy_scores_nop11firefly.csv`: same as `accuracy_scores.csv`, but with `p11_firefly` task removed (see Section 4.3)
+- `Appendix_Bug_and_Grading_Information.xlsx`: contains information about each bug (repository, issue number, commit numbers); contains task set for each participant; contains scores
 - `correct_lines.csv`: listing of which lines of code are considered correct for each bug 
 - `correct_lines.xlsx`: excel version of csv 
-- `duration_from_notes.csv`: how long each participant took to do each task according to Study Administrator's notes
-- `duration_from_notes.xlsx`: excel version of csv 
-- `duration_from_notes_nop11firefly.csv`: same as `duration_from_notes.xlsx`, but with `p11_firefly` task removed (see Section 4.3)
+- `duration_from_notes_no_p11firefly_no_p13mantis_seconds.xlsx`: same as `duration_from_notes_no_p11firefly_no_p13mantis.csv`, but with durations converted to seconds and averages per bug used for Table 6 
+- `duration_from_notes_no_p11firefly_no_p13mantis.csv`: same as `duration_from_notes.csv`, but with `p11_firefly` and `p13_praying_mantis` task removed (see Section 3.7 Threats to Validity)
+- `duration_from_notes.csv`: how long each participant took to do each task according to Study Administrator's notes and screen recordings 
 - `fixations_percent.csv`: manually created csv by taking fixations data from "code" and "all" versions and putting them on one sheet to compare 
 - `official_bug_names.csv`: mapping from bug nickname like "ladybug" to official bug name from repository 
 - `region_coordinates_per_participant.xlsx`: for each task, the Study Administrator watched the playback videos and used `get_xy.py` to determine how the participant divided their screen. Each task is 1+ rows, and for each task, there are multiple regions and the coordinates of those regions (top left and bottom right for each region)
@@ -57,12 +61,13 @@
 10. `get_xy.py`
 11. `graph_stats.py`
 12. `normal_check.py`
-13. `pearson.py`
-14. `rename_md_to_c.py`
-15. `topx_contain_ypercent_fixations.py`
-16. `topx_contain_ypercent_fixations_log.py`
-17. `unpickle.py`
-18. `unpickle_all.py`
+13. `parse_ai_interactions.py` 
+14. `pearson.py`
+15. `rename_md_to_c.py`
+16. `topx_contain_ypercent_fixations.py`
+17. `topx_contain_ypercent_fixations_log.py`
+18. `unpickle.py`
+19. `unpickle_all.py`
 </details>
 
 ## 5.2 Script Details 
@@ -106,7 +111,8 @@ These `itrace_eclipse*.xml` files are used by the iTrace toolkit when creating t
   <summary><strong>Expand Section</strong></summary>
 
 #### Purpose 
-create charts and csvs showing for each accuracy score, how many unique bugs and unique participants got that score 
+- Create charts and csvs showing for each accuracy score, how many unique bugs and unique participants got that score 
+- Also create histograms for each confidence, difficulty, and accuracy score showing how many tasks achieved each score 
 #### Usage
 ```
 usage: count_unique_per_accuracy.py [-h] [--output_dir OUTPUT_DIR] csv_path
@@ -126,16 +132,22 @@ options:
 python .\count_unique_per_accuracy.py .\accuracy_scores.csv --output_dir accuracy_counts
 ```
 #### Outputs 
-- `bug_accuracy_counts.csv`: where accuracy scores across the top, bugs down the side. numbers are telling you how many participants completed each bug with the specified score. For example, 1 person completed the firefly bug with a score of 0. 
+- `bug_accuracy_counts.csv`: where accuracy scores across the top, bugs down the side. numbers are telling you how many participants completed each bug with the specified score. For example, 3 people completed the firefly bug with a score of 1. 
 - `bug_accuracy_line_plot.png`: line plot of `bug_accuracy_counts.csv` 
 - `bug_histograms_subplot.png`: histograms of `bug_accuracy_counts.csv` 
 - `participant_accuracy_counts.csv`: where accuracy scores across the top, participants down the side. numbers are telling you how many tasks each participant completed with each accuracy score. For example, participant 1 completed 3 bugs with a score of 1 and 1 bug with a score of 2, and so on. 
 - `participant_accuracy_line_plot.png`: line plot of `participant_accuracy_counts.csv` 
 - `participant_histograms_subplot.png`: histogram of `participant_accuracy_counts.csv` 
-- `participant_stacked_bar.png`: shows how many tasks got each accuracy score. For example, there were 13 tasks that got a score of 2. The colors show you which participant did each task. Note: we round half values down. So, we rounded 3.5 down to 3 and 4.5 down to 4. However, we rounded a score of 0 up to 1. This reflects how we calculated all the other metrics. For the other metrics, the tasks with a "low" score where the threshold is 1 include all scores less than or equal to 1 including a score of 0. For the other metrics when the threshold is greater than or equal to 4, we include 4.5 but not 3.5. 
-- `where_accuracy_summary.csv`: for each accuracy score, tells you how many unique bugs and participants got that score. For example, there were 4 unique participants who achieved a score of 1 on a task: p1, p3, p4, and p6. 
+- `participant_stacked_bar.pdf`: shows how many tasks got each accuracy score. For example, there were 32 tasks that got a score of 2. The colors show you which participant did each task. Note: we rounded scores of 0 up to 1. 
+- `What_Accuracy_histogram.pdf`: histogram showing how many tasks achieved each what accuracy score 
+- `What_Confidence_histogram.pdf`: histogram showing how many tasks achieved each what confidence score 
+- `What_Difficulty_histogram.pdf`: histogram showing how many tasks achieved each what difficulty score 
+- `Where_Accuracy_histogram.pdf`: histogram showing how many tasks achieved each where accuracy score 
+- `where_accuracy_summary.csv`: for each accuracy score, tells you how many unique bugs and participants got that score.  
+- `Where_Confidence_histogram.pdf`: histogram showing how many tasks achieved each where confidence score 
+- `Where_Difficulty_histogram.pdf`: histogram showing how many tasks achieved each where difficulty score 
 #### Outputs Used For 
-This is Figure 8 in the paper. 
+Histograms are used for Figure 3 and the stacked bar chart is Figure 11. 
 </details>
 
 ### 5.2.3 `create_duration_success_plots.py` 
@@ -177,22 +189,27 @@ NOTE: called by `create_graphs.py`
   <summary><strong>Expand Section</strong></summary>
 
 #### Purpose 
-script to run other scripts. Specifically, it runs `graph_stats.py`, `create_specified_plot.py`, `topx_methods_contain_ypercent_fixations.py`, and `create_duration_success_plots.py` 
+script to run other scripts. Specifically, it runs `graph_stats.py`, `create_specified_plot.py`, `topx_methods_contain_ypercent_fixations_log.py`, and `create_duration_success_plots.py` 
 #### Usage
 ```
-usage: create_graphs.py [-h] directory
+usage: create_graphs.py [-h] [--scripts-dir SCRIPTS_DIR] [--spreadsheet-dir SPREADSHEET_DIR] directory
 
 Run graph_stats.py with a specified directory.
 
 positional arguments:
-  directory   Directory containing fixation data
+  directory             Directory containing fixation data
 
 options:
-  -h, --help  show this help message and exit
+  -h, --help            show this help message and exit
+  --scripts-dir SCRIPTS_DIR
+                        Directory containing the scripts (default: current directory)
+  --spreadsheet-dir SPREADSHEET_DIR
+                        Directory containing the CSV files (default: current directory)
 ```
 #### Example 
 ```
-python ./create_graphs.py 20250421_145430_get_fixation_stats_20250413_162432_fixations_outputs
+python .\create_graphs.py .\20251124_093825_get_fixation_stats_20251123_205922_fixations_no_md_outputs\ --spreadsheet-dir ..\important_spreadsheets\
+
 ```
 #### Outputs 
 - outputs from `graph_stats.py` for `fdurations_per_bug` 
@@ -201,13 +218,13 @@ python ./create_graphs.py 20250421_145430_get_fixation_stats_20250413_162432_fix
 - outputs from `graph_stats.py` for `flines_uniq`  
 - outputs from `graph_stats.py` for `fregressionrate` 
 - outputs from `graph_stats.py` for `fmethods_uniq`  
-- outputs from `topx_contain_ypercent_fixations` for `fmethods_tally.csv` 
-- outputs from `topx_contain_ypercent_fixations` for `flines_tally.csv` 
+- outputs from `topx_contain_ypercent_fixations_log` for `fmethods_tally.csv` 
+- outputs from `topx_contain_ypercent_fixations_log` for `flines_tally.csv` 
 - outputs from `create_specified_plot.py` for `fmethods_uniq.csv` 
 - outputs from `create_duration_success_plots.py` 
 
 #### Outputs Used For
-Figures 3-4 and Tables 8-9
+Figure 5 and Tables 8-9
 </details>
 
 ###  5.2.5 `create_specified_plot.py`
@@ -244,13 +261,13 @@ python ./create_specified_plot.py 20250413_165755_get_fixation_stats_20250413_16
 ```
 
 ```
- python .\create_specified_plot.py .\code_percent_demo\20250413_162432_fixations_data_fcount_md_vs_no_md.csv .\official_bug_names.csv "Bug" "Percent Code Fixations" "Participant ID" --title "Percent Fixations on Code" --xlabel "Bug" --ylabel "Percent Fixations on Code" --dir percent_code
+ python .\create_specified_plot.py .\code_percent\20251123_205922_fixations_no_md_data_fcount_vs_md_data_fcount.csv ..\important_spreadsheets\official_bug_names.csv "Bug" "Percent Code Fixations" "Participant ID" --title "Percent Fixations on Code" --xlabel "Bug" --ylabel "Percent Fixations on Code" --dir "percent_code"
 ```
 #### Outputs 
 - outputs a .png and a .svg version of a scatter plot and a box plot to a new folder called `uniq_methods` (or the directory name specified) that is created in the directory where the input csv_file is. The name of the .png and .svg are either based on the title from the command line arguments, or it is `Unique_Number_of_Methods_Visted_Per_Bug_*` 
 - what the graph shows is really dependent on the data and the command line arguments, but when this script is called from `create_graphs.py`, the box plot shows the average number of unique methods/functions looked at for each bug. The average is over all the participants who completed the specified bug. When this script is called from `create_graphs.py`, the scatter plot shows how many unique methods/functions each participant looked at for each bug. The dots are color coded so that each participant is a different color, but the same color across all of the tasks they completed. 
 #### Outputs Used For
-NOTE: called by `create_graphs.py`. Used to create Figure 5 in paper.  
+NOTE: called by `create_graphs.py`. Used to create Figure 6 in paper.  
 </details>
 
 ### 5.2.6 `extractfixations.py` 
@@ -262,7 +279,7 @@ Take databases and turn them into .pkl. Basically, take all databases and extrac
 Then, we pickle the data structure and save it as a .pkl file. 
 #### Usage
 ```
-usage: extractfixations.py [-h] [--no-gazes [NO_GAZES]] [--no-md [NO_MD]] [--no-verify [NO_VERIFY]] directory
+usage: extractfixations.py [-h] [--no-gazes [NO_GAZES]] [--no-md [NO_MD]] [--no-verify [NO_VERIFY]] [--no_fixation_check] directory
 
 Extract fixations and gazes from database files.
 
@@ -276,6 +293,7 @@ options:
   --no-md [NO_MD]       Remove fixations on markdown files .md (default: False)
   --no-verify [NO_VERIFY]
                         Don't verify db time order
+  --no_fixation_check   Don't check if fixations were created with IVT as expected
 ```
 #### Example 
 ```
@@ -300,7 +318,7 @@ For example this script creates timelines of fixations, highlighting which fixat
 This script also computes metrics like the percentage of time that participant looked at the same line twice in a row, etc. 
 #### Usage
 ```
-usage: get_answer_fixations.py [-h] [--includes_md] [--buffer BUFFER] [--skip_timelines] [--skip_dwell] [--low_threshold LOW_THRESHOLD] [--high_threshold HIGH_THRESHOLD]
+usage: get_answer_fixations.py [-h] [--buffer BUFFER] [--skip_timelines] [--skip_dwell] [--low_threshold LOW_THRESHOLD] [--high_threshold HIGH_THRESHOLD] [--skip_dnf]
                                input_file duration_file correct_lines_file
 
 Get how many times each participant looked at correct bug location from pkl.
@@ -319,6 +337,7 @@ options:
                         Unsuccessful Accuracy Threshold (default: 2)
   --high_threshold HIGH_THRESHOLD
                         Successful Accuracy Threshold (default: 4)
+  --skip_dnf            Don't include p11 firefly and p13 praying_mantis data because they did not finish the task
 ```
 The threshold values are inclusive. So the threshold of 2 is all scores less than and equal to 2. 
 The buffer allows you to be more flexible with what you consider a "correct fixation" or a fixation on a line that contains the answer to the task. 
@@ -326,7 +345,7 @@ When the buffer is set to 0, only the exact line is considered correct. However,
 the correct line will also be considered correct. 
 #### Example 
 ```
-python .\get_answer_fixations.py 20250413_165253_fixations_no_md.pkl .\duration_from_notes.csv .\correct_lines.csv --low_threshold 1 --high_threshold 5
+python .\get_answer_fixations.py 20251123_205922_fixations_no_md.pkl .\duration_from_notes.csv .\correct_lines.csv --low_threshold 3 --high_threshold 4 --skip_dnf
 ```
 #### Outputs 
 - Creates a directory called `{timestamp}_get_answer_fixations_{name_of_pkl_file}`
@@ -343,7 +362,7 @@ python .\get_answer_fixations.py 20250413_165253_fixations_no_md.pkl .\duration_
 - `{name_of_pkl_file}_next_fixation_similarity_percent.csv`: averages and counts for each participant. These are the averages that are averaged together for `{name_of_pkl_file}_divided_by_accuracy.csv`
 
 #### Outputs Used For
-Used to get euclidean distance for figure 7 and table 11. 
+Used to get euclidean distance for figure 8 and table 11. 
 </details>
 
 ### 5.2.8 `get_fixation_stats_success_breakdown.py` 
@@ -351,10 +370,10 @@ Used to get euclidean distance for figure 7 and table 11.
   <summary><strong>Expand Section</strong></summary>
   
 #### Purpose 
-I would say this is the "meat" of the data analysis. Get "Table 2" data. Fixation count, fixation duration, Lines looked at, functions looked at, etc and put info into .csvs 
+I would say this is the "meat" of the data analysis. Get "Table 7" data. Fixation count, fixation duration, Lines looked at, functions looked at, etc and put info into .csvs 
 #### Usage
 ```
-usage: get_fixation_stats_success_breakdown.py [-h] input_file accuracy_file
+usage: get_fixation_stats_success_breakdown.py [-h] [--skip_dnf] input_file accuracy_file
 
 Get stats from pkl.
 
@@ -364,32 +383,37 @@ positional arguments:
 
 options:
   -h, --help     show this help message and exit
+  --skip_dnf     Don't include participant-tasks that did not finish (p11 firefly and p13 praying_mantis)
 ```
 #### Example 
 ```
-python .\get_fixation_stats_success_breakdown.py 20250413_165253_fixations_no_md.pkl .\accuracy_scores.csv
+python .\get_fixation_stats_success_breakdown.py 20251123_205922_fixations_no_md.pkl .\accuracy_scores.csv --skip_dnf 
 ```
 #### Outputs 
 - `all` directory: contains metrics for all tasks (not divided by accuracy or confidence)
   - `L1_H5_Where_Accuracy` directory: contains metrics and plots for tasks divided by `Where_Accuracy` where the low threshold is <= 1 and the high threshold is >= 5. Measures differences between low and high groups. 
   - `L1_H5_Where_Confidence` directory: contains metrics and plots for tasks divided by `Where_Confiderce` where the low threshold is <= 1 and the high threshold is >= 5. Measures differences between low and high groups. 
+  - `L2_H3_Where_Accuracy` directory: contains metrics and plots for tasks divided by `Where_Accuracy` where the low threshold is <= 2 and the high threshold is >= 3. Measures differences between low and high groups. 
+  - `L2_H3_Where_Confidence` directory: contains metrics and plots for tasks divided by `Where_Confidence` where the low threshold is <= 2 and the high threshold is >= 3. Measures differences between low and high groups. 
   - `L2_H4_Where_Accuracy` directory: contains metrics and plots for tasks divided by `Where_Accuracy` where the low threshold is <= 2 and the high threshold is >= 4. Measures differences between low and high groups. 
   - `L2_H4_Where_Confidence` directory: contains metrics and plots for tasks divided by `Where_Confidence` where the low threshold is <= 2 and the high threshold is >= 4. Measures differences between low and high groups. 
+  -  `L3_H4_Where_Accuracy` directory: contains metrics and plots for tasks divided by `Where_Accuracy` where the low threshold is <= 3 and the high threshold is >= 4. Measures differences between low and high groups. 
+  - `L3_H4_Where_Confidence` directory: contains metrics and plots for tasks divided by `Where_Confidence` where the low threshold is <= 3 and the high threshold is >= 4. Measures differences between low and high groups. 
   - `{name_of_pkl_file}_all.csv`: summary of 5 metrics: number of fixations, number of unique lines fixated on, regression rate, number of unique methods fixated on, mean fixation duration. There are mean, medians, mins, maxs, and stddevs for each metric calculated across all tasks. Ex: number of fixations for p10_ladybug + number of fixations for p2_stonefly + ... / total number of tasks = mean number of fixations 
   - `{name_of_pkl_file}_fcount_all.csv`: number of fixations per task 
   - `{name_of_pkl_file}_fduration_means_per_bug_all.csv`: mean fixation duration per task 
   - `{name_of_pkl_file}_flines_uniq_all.csv`: number of unique lines looked at per task 
   - `{name_of_pkl_file}_fmethods_uniq_all.csv`: number of unique methods/functions looked at per task 
   - `{name_of_pkl_file}_fregressionrate_all.csv`: regression rate per task 
-- `confident`/ `unsure` directories: contain .csvs showing the same 5 metrics from the `all` directory, but instead we only have the tasks where the participant either rated their confidence as >= 4 (confident) or <=2 (unsure)
-- `success`/ `fail` directories: : contain .csvs showing the same 5 metrics from the `all` directory, but instead we only have the tasks where the where accuracy is either >= 4 (success) or <=2 (fail)
+- `confident`/ `unsure` directories: contain .csvs showing the same 5 metrics from the `all` directory, but instead we only have the tasks where the participant either rated their confidence as >= 4 (confident) or <=3 (unsure)
+- `success`/ `fail` directories: : contain .csvs showing the same 5 metrics from the `all` directory, but instead we only have the tasks where the where accuracy is either >= 4 (success) or <=3 (fail)
 - `fcount` directory 
   - `{name_of_pkl_file}_stats_fcount.csv`: summary of following 5 .csvs, shows number of tasks, min number of fixations, max number of fixations, mean number of fixations, and median number of fixations for each bug for each group (all, successful, failed, confident, unsure) 
   - `{name_of_pkl_file}_stats_fcount_all.csv`: shows number of tasks, min number of fixations, max number of fixations, mean number of fixations, and median number of fixations for all tasks grouped by bug 
   - `{name_of_pkl_file}_stats_fcount_confident.csv`: shows number of tasks, min number of fixations, max number of fixations, mean number of fixations, and median number of fixations for tasks where the participant rated their confidence >= 4 grouped by bug 
-  - `{name_of_pkl_file}_stats_fcount_fail.csv`: shows number of tasks, min number of fixations, max number of fixations, mean number of fixations, and median number of fixations for tasks where the accuracy score is <= 2 grouped by bug 
+  - `{name_of_pkl_file}_stats_fcount_fail.csv`: shows number of tasks, min number of fixations, max number of fixations, mean number of fixations, and median number of fixations for tasks where the accuracy score is <= 3 grouped by bug 
   - `{name_of_pkl_file}_stats_fcount_success.csv`: shows number of tasks, min number of fixations, max number of fixations, mean number of fixations, and median number of fixations for tasks where the accuracy score is >= 4 grouped by bug 
-  - `{name_of_pkl_file}_stats_fcount_unsure.csv`: shows number of tasks, min number of fixations, max number of fixations, mean number of fixations, and median number of fixations for tasks where the participant rated their confidence <= 2 grouped by bug
+  - `{name_of_pkl_file}_stats_fcount_unsure.csv`: shows number of tasks, min number of fixations, max number of fixations, mean number of fixations, and median number of fixations for tasks where the participant rated their confidence <= 3 grouped by bug
 - `fduration_means_per_bug` directory: same as `fcount` directory, but instead of number of fixations, it is the mean duration of the fixations for each task grouped by bug 
 - `fdurations_per_bug` directory: same as `fcount` directory, but instead of number of fixations, it is the mean duration of the fixations grouped byg bug 
 - `flines_uniq` directory: same as `fcount` directory, but instead of number of fixations, it is the number of unique lines the participant looked at 
@@ -406,7 +430,7 @@ python .\get_fixation_stats_success_breakdown.py 20250413_165253_fixations_no_md
  
 #### Outputs Used For
 The outputs of this script are used as the input for `graph_stats.py` and other scripts. 
-Used to get Table 6 and Table 10 data. 
+Used to get Table 7 and Table 11 data. 
 </details>
 
 ### 5.2.9 `get_region_times.py`
@@ -437,7 +461,7 @@ python .\get_region_times.py 20250413_165253_gazes.pkl important_spreadsheets\re
 - `timestamp_gazes_gaze_counts_per_region.csv`: number of gazes per region per task
 - `timestamp_gazes_get_region_times.log`: logging file for script 
 #### Outputs Used For
-Percent Gazes AI Window in Table 10 
+Percent Gazes at each region in Table 10 
 </details>
 
 ### 5.2.10 `get_xy.py`
@@ -537,7 +561,39 @@ Outputs whether or not the data in the column specified has a normal distributio
 General statistics 
 </details>
 
-### 5.2.13 `pearson.py` 
+### 5.2.13 `parse_ai_interactions.py` 
+<details>
+  <summary><strong>Expand Section</strong></summary>
+  
+#### Purpose 
+Parses .json files outputted from Remain AI Eclipse Plugin 
+
+#### Usage
+```
+Parse AI interaction data and convert timestamps to human-readable format.
+
+positional arguments:
+  input_file            Path to the input JSON file containing AI interaction data.
+
+options:
+  -h, --help            show this help message and exit
+  --output OUTPUT, -o OUTPUT
+                        Output CSV file path (optional).
+  --summary-only        Only print summary, not individual interactions.
+```
+#### Example 
+```
+python .\parse_ai_interactions.py .\p12_ai_output.json --output .\p12_ai_output_parsed.csv
+```
+
+#### Outputs 
+A csv file containing each AI query along with response and metadata. 
+
+#### Outputs Used For
+Table 10 in paper 
+</details>
+
+### 5.2.14 `pearson.py` 
 <details>
   <summary><strong>Expand Section</strong></summary>
   
@@ -546,23 +602,25 @@ Calculates the pearson correlation coefficient between columns in .csv file.
 
 #### Usage
 ```
-usage: pearson.py [-h] [--alpha ALPHA] csv_path
+usage: pearson.py [-h] [--start-col START_COL] [--end-col END_COL] [--alpha ALPHA] csv_path
 
 Compute Pearson correlation matrix from a CSV file.
 
 positional arguments:
-  csv_path       Path to the CSV file.
+  csv_path              Path to the CSV file.
 
 options:
-  -h, --help     show this help message and exit
-  --alpha ALPHA  Significance level for hypothesis testing (default: 0.05).
+  -h, --help            show this help message and exit
+  --start-col START_COL
+                        Starting column index (0-based, default: 2 for column C).
+  --end-col END_COL     Ending column index (exclusive, default: None for all remaining columns).
+  --alpha ALPHA         Significance level for hypothesis testing (default: 0.05).
 ```
 #### Example 
 ```
 python .\pearson.py important_spreadsheets\accuracy_scores.csv 
 ```
-Note that this script currently only works for the format of the `accuracy_scores.csv` file in this repository. 
-In the future, I will make this more generalizable. 
+
 #### Outputs 
 3 matrices: 
 1. pearson correlation coefficient matrix 
@@ -573,7 +631,7 @@ In the future, I will make this more generalizable.
 Table 4 in paper 
 </details>
 
-### 5.2.14 `rename_md_to_c.py`
+### 5.2.15 `rename_md_to_c.py`
 <details>
   <summary><strong>Expand Section</strong></summary>
   
@@ -604,7 +662,7 @@ After renaming, then I use srcML to create the .xml of the study instructions an
 Then, that srcML is the input to the iTrace Toolkit. 
 </details>
 
-### 5.2.15 `topx_contain_ypercent_fixations.py`
+### 5.2.16 `topx_contain_ypercent_fixations.py`
 <details>
   <summary><strong>Expand Section</strong></summary>
   
@@ -639,18 +697,21 @@ python .\topx_contain_ypercent_fixations.py \path\to\20250413_165253_fixations_n
 -`aggregate_data_stats.csv`: Task data aggregated per bug   
 -svgs, pngs, pdfs - There is one per bug, but 3 versions (svg, png, pdf)
 #### Outputs Used For
-Tables 7 and 8, Figures 3 and 4. 
+This version is not being used, but the log version is used to create Tables 8 and 9, Figures 5a and 5b. 
 </details>
 
-### 5.2.16 `topx_contain_ypercent_fixations_log.py`
+### 5.2.17 `topx_contain_ypercent_fixations_log.py`
 <details>
   <summary><strong>Expand Section</strong></summary>
   
 #### Purpose 
 This is the same as `topx_contain_ypercent_fixations.py`, but the graphs use a log scale on the y axis. 
+
+#### Outputs Used For
+Used to create Tables 8 and 9, Figures 5a and 5b. 
 </details>
 
-### 5.2.17 `unpickle.py`
+### 5.2.18 `unpickle.py`
 <details>
   <summary><strong>Expand Section</strong></summary>
   
@@ -677,7 +738,7 @@ python .\unpickle.py fixations.pkl fixations.csv
 .csv containing all data in .pkl 
 </details>
 
-### 5.2.18 `unpickle_all.py`
+### 5.2.19 `unpickle_all.py`
 <details>
   <summary><strong>Expand Section</strong></summary>
   

@@ -3,11 +3,33 @@ import numpy as np
 from scipy.stats import pearsonr
 import argparse
 
-def compute_pearson_with_significance(csv_path, alpha=0.05):
-    # Load CSV and extract 6 columns starting from column C
+def compute_pearson_with_significance(csv_path, start_col=2, end_col=None, alpha=0.05):
+    """
+    Compute Pearson correlation matrix for a variable number of columns.
+    
+    Args:
+        csv_path (str): Path to the CSV file
+        start_col (int): Starting column index (0-based, default: 2 for column C)
+        end_col (int): Ending column index (exclusive, default: None for all remaining columns)
+        alpha (float): Significance level for hypothesis testing (default: 0.05)
+    """
+    # Load CSV
     df = pd.read_csv(csv_path)
-    selected = df.iloc[:, 2:8].copy()
-    print(f"Selected columns: {selected.columns.tolist()}")
+    
+    # Determine column range
+    if end_col is None:
+        end_col = len(df.columns)
+    
+    # Validate column indices
+    if start_col < 0 or start_col >= len(df.columns):
+        raise ValueError(f"start_col {start_col} is out of range. CSV has {len(df.columns)} columns.")
+    if end_col <= start_col or end_col > len(df.columns):
+        raise ValueError(f"end_col {end_col} is invalid. Must be > start_col ({start_col}) and <= {len(df.columns)}")
+    
+    # Extract selected columns
+    selected = df.iloc[:, start_col:end_col].copy()
+    print(f"Selected columns {start_col} to {end_col-1} (0-based): {selected.columns.tolist()}")
+    print(f"Number of columns: {len(selected.columns)}")
 
     # Replace 'X' with NaN and convert to numeric
     selected = selected.replace('X', np.nan).apply(pd.to_numeric, errors='coerce')
@@ -48,12 +70,27 @@ def compute_pearson_with_significance(csv_path, alpha=0.05):
 def main():
     parser = argparse.ArgumentParser(description='Compute Pearson correlation matrix from a CSV file.')
     parser.add_argument('csv_path', help='Path to the CSV file.')
-    parser.add_argument('--alpha', type=float, default=0.05, help='Significance level for hypothesis testing (default: 0.05).')
+    parser.add_argument('--start-col', type=int, default=2, 
+                       help='Starting column index (0-based, default: 2 for column C).')
+    parser.add_argument('--end-col', type=int, default=None,
+                       help='Ending column index (exclusive, default: None for all remaining columns).')
+    parser.add_argument('--alpha', type=float, default=0.05, 
+                       help='Significance level for hypothesis testing (default: 0.05).')
 
     args = parser.parse_args()
-    print(f"Computing Pearson correlation for {args.csv_path} with alpha = {args.alpha}")
+    
+    print(f"Computing Pearson correlation for {args.csv_path}")
+    print(f"Column range: {args.start_col} to {args.end_col if args.end_col else 'end'}")
+    print(f"Alpha: {args.alpha}")
 
-    compute_pearson_with_significance(args.csv_path, args.alpha)
+    try:
+        compute_pearson_with_significance(args.csv_path, args.start_col, args.end_col, args.alpha)
+    except ValueError as e:
+        print(f"Error: {e}")
+        return 1
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        return 1
 
 if __name__ == '__main__':
     main()

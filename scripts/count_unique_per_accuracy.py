@@ -8,6 +8,9 @@ import numpy as np
 import pandas as pd
 import math
 import matplotlib.pyplot as plt
+import matplotlib.cm as cm
+import matplotlib.colors as mcolors
+import numpy.ma as ma
 
 def plot_histograms_from_csv(csv_file, output_dir):
     df = pd.read_csv(csv_file)
@@ -45,7 +48,7 @@ def plot_histograms_from_csv(csv_file, output_dir):
                 continue
 
         # Prepare bar chart
-        plt.figure(figsize=(3.71475, 2.29395))
+        plt.figure(figsize=(4, 3.71475))
         bins = [1, 2, 3, 4, 5]
         heights = [len(grouped_data[b]) for b in bins]
         bars = plt.bar(bins, heights, tick_label=bins)
@@ -70,12 +73,13 @@ def plot_histograms_from_csv(csv_file, output_dir):
         if num_xs > 0:
             title += f" ({num_xs} No Rating)"
         #plt.title(f'Histogram for {title}')
-        xlabel= plt.xlabel(f'{num_xs} Tasks Not Rated\n {num_rounded} Rounded (floors .5→int, 0→1)', fontsize=14)
+        xlabel= plt.xlabel(f'{num_xs} Tasks Not Rated\n {num_rounded} Rounded (0→1)', fontsize=19) # no half scoes in p1-21 
+        #xlabel= plt.xlabel(f'{num_xs} Tasks Not Rated\n {num_rounded} Rounded (floors .5→int, 0→1)', fontsize=14)
         xlabel.set_position((0.47, 0.50))  # move to the left 
-        ylabel = plt.ylabel('Num Tasks', fontsize=14)
+        ylabel = plt.ylabel('Num Tasks', fontsize=19)
         ylabel.set_position((-0.3, 0.40))  # Lower than default
-        plt.yticks(fontsize=14)
-        plt.xticks(fontsize=14)
+        plt.yticks(fontsize=16)
+        plt.xticks(fontsize=16)
         plt.subplots_adjust(left=0.17, right=0.99, top=0.95, bottom=0.35)
         plt.grid(axis='y', linestyle='--', alpha=0.7)
         #plt.tight_layout()
@@ -122,9 +126,16 @@ def plot_stacked_histogram(df, group_col, count_col, title, output_path):
         return int(''.join(filter(str.isdigit, pid)))
     participants = sorted(df[group_col].dropna().unique(), key=pid_key)
 
-    # 5) Colors from a qualitative map
-    cmap = plt.get_cmap('tab20')
-    colors = cmap.colors[:len(participants)]
+    # 1. Start with the high-contrast tab20 colors (20 colors)
+    colors = list(cm.get_cmap('tab20').colors) 
+
+    # 2. Add one highly distinct color that contrasts well with tab20
+    # Example: A bright magenta or a distinct brown/gold
+    supplement_color = mcolors.to_rgba('gold') # Or 'magenta'
+
+    # 3. Combine to get 21 distinct colors
+    colors.append(supplement_color)
+
 
     # 6) Pivot counts and pivot rounded‐flags
     counts = (
@@ -143,35 +154,46 @@ def plot_stacked_histogram(df, group_col, count_col, title, output_path):
     )
 
     # 7) Plot stacked bars and annotate asterisks where rounds>0
-    fig, ax = plt.subplots(figsize=(5, 2.5))
+    fig, ax = plt.subplots(figsize=(7, 5))
     bottom = np.zeros(len(accuracy_levels))
 
     for idx, participant in enumerate(participants):
         vals = counts.get(participant, pd.Series(0, index=accuracy_levels)).values
+        # --- NEW CODE: Mask zero values ---
+        # Create a masked array: if vals == 0, the value is masked (ignored by Matplotlib)
+        masked_vals = ma.masked_where(vals == 0, vals)
+        # -----------------------------------
+        
+        print(f"index is: {idx}, participant is: {participant}, vals are: {vals}")
         ax.bar(
             accuracy_levels,
-            vals,
+            masked_vals,  # Use the masked array here
             bottom=bottom,
             width=bar_width,
             align='center',
             color=colors[idx],
-            label=str(participant)
+            label=str(participant),
+            edgecolor='none' # Keep this for safety
         )
 
         # annotate "*" for any rounded entries in this segment
         for i, x in enumerate(accuracy_levels):
             if participant in rounds.columns and rounds.at[x, participant] > 0:
                 y = bottom[i] + vals[i] / 4
-                ax.text(x, y, '*', ha='center', va='center', fontsize=12)
+                # Only annotate if the value is non-zero to prevent floating asterisks
+                if vals[i] > 0: 
+                    ax.text(x, y, '*', ha='center', va='center', fontsize=12)
 
+        # Update the overall bottom array using the original, unmasked values
         bottom += vals
 
     # 8) Final styling
     #ax.set_title(title)
-    ax.set_xlabel('Where_Accuracy (floors .5→int, 0→1)')
-    ax.set_ylabel(f'Num Tasks')
+    #ax.set_xlabel('Where_Accuracy (floors .5→int, 0→1)')
+    ax.set_xlabel('Where_Accuracy (Rounded 0→1)', fontsize=14) # no half scores in p1-21
+    ax.set_ylabel(f'Num Tasks', fontsize=14)
     ax.set_xticks(accuracy_levels)
-    ax.legend(title=group_col, bbox_to_anchor=(1.05, 1.04), loc='upper left', fontsize='small')
+    ax.legend(title=group_col, bbox_to_anchor=(1.05, 1.04), loc='upper left')
     fig.tight_layout()
     fig.savefig(output_path)
     plt.close(fig)

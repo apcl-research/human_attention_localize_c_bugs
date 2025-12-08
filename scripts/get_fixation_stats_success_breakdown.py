@@ -354,7 +354,7 @@ def rank_biserial(u_stat, n1, n2):
     """Rank biserial effect size from Mann-Whitney U"""
     return 1 - (2 * u_stat) / (n1 * n2)
 
-def plot_metric_by_accuracy(df, metric, low_threshold=2, high_threshold=4, split='Where_Accuracy', graph_filename=None): 
+def plot_metric_by_accuracy(df, metric, low_threshold=2, high_threshold=3, split='Where_Accuracy', graph_filename=None): 
     # --- Plotting ---
     # Melt for seaborn
     # Filter only rows that are low or high
@@ -380,7 +380,7 @@ def plot_metric_by_accuracy(df, metric, low_threshold=2, high_threshold=4, split
     plt.savefig(graph_filename)
     plt.close()
 
-def divide_by_accuracy(df, metric, split='Where_Accuracy', graph_filename=None, low_threshold=2, high_threshold=4): 
+def divide_by_accuracy(df, metric, split='Where_Accuracy', graph_filename=None, low_threshold=2, high_threshold=3): 
     # Create task identifier
     df['task'] = df['bug'].astype(str) + "_" + df['participant'].astype(str)
 
@@ -430,7 +430,7 @@ def divide_by_accuracy(df, metric, split='Where_Accuracy', graph_filename=None, 
     plot_metric_by_accuracy(df, metric, low_threshold, high_threshold, split=split, graph_filename=graph_filename) 
     return results
 
-def get_stat_sig(data, accuracy_data, metric, output_dir, input_stem, split='Where_Accuracy', low_threshold=2, high_threshold=4):
+def get_stat_sig(data, accuracy_data, metric, output_dir, input_stem, split='Where_Accuracy', low_threshold=2, high_threshold=3):
     dir_name = f"{output_dir}/all/L{low_threshold}_H{high_threshold}_{split}"
     os.makedirs(dir_name, exist_ok=True)
     overall_filename = f"{dir_name}/{input_stem}_stat_sig_L{low_threshold}_H{high_threshold}.csv"
@@ -454,11 +454,15 @@ def save_all_intermediates(output_dir, input_stem, col_headers, base, all, succe
     save_intermediate_step(output_dir, base, "fail", input_stem, col_headers, fail, accuracy_dict=accuracy_dict, islist=islist)
     save_intermediate_step(output_dir, base, "confident", input_stem, col_headers, confident, accuracy_dict=accuracy_dict, islist=islist)
     save_intermediate_step(output_dir, base, "unsure", input_stem, col_headers, unsure, accuracy_dict=accuracy_dict, islist=islist)
-    get_stat_sig(all, accuracy_dict, base, output_dir, input_stem, split='Where_Accuracy', low_threshold=2, high_threshold=4)
-    get_stat_sig(all, accuracy_dict, base, output_dir, input_stem, split='Where_Accuracy', low_threshold=1, high_threshold=5)
+    get_stat_sig(all, accuracy_dict, base, output_dir, input_stem, split='Where_Accuracy', low_threshold=2, high_threshold=3) # 1,2s vs 3,4,5s 
+    get_stat_sig(all, accuracy_dict, base, output_dir, input_stem, split='Where_Accuracy', low_threshold=2, high_threshold=4) # 1,2 vs 4,5s
+    get_stat_sig(all, accuracy_dict, base, output_dir, input_stem, split='Where_Accuracy', low_threshold=3, high_threshold=4) # 1,2,3 vs 4,5s
+    get_stat_sig(all, accuracy_dict, base, output_dir, input_stem, split='Where_Accuracy', low_threshold=1, high_threshold=5) # 1s vs 5s 
 
-    get_stat_sig(all, accuracy_dict, base, output_dir, input_stem, split='Where_Confidence', low_threshold=2, high_threshold=4)
-    get_stat_sig(all, accuracy_dict, base, output_dir, input_stem, split='Where_Confidence', low_threshold=1, high_threshold=5)
+    get_stat_sig(all, accuracy_dict, base, output_dir, input_stem, split='Where_Confidence', low_threshold=2, high_threshold=3) # 1,2s vs 3,4,5s 
+    get_stat_sig(all, accuracy_dict, base, output_dir, input_stem, split='Where_Confidence', low_threshold=2, high_threshold=4) # 1,2s vs 4,5s
+    get_stat_sig(all, accuracy_dict, base, output_dir, input_stem, split='Where_Confidence', low_threshold=3, high_threshold=4) # 1,2,3 vs 4,5s
+    get_stat_sig(all, accuracy_dict, base, output_dir, input_stem, split='Where_Confidence', low_threshold=1, high_threshold=5) # 1s vs 5s 
     
 def get_accuracy_bug_participant_dict(accuracy_data, bug_names): 
     accuracy_bug_participant_dict = {bug: {} for bug in bug_names}
@@ -473,7 +477,7 @@ def get_accuracy_bug_participant_dict(accuracy_data, bug_names):
         }
     return accuracy_bug_participant_dict
 
-def get_stats(input_filename, accuracy_file, output_dir, input_stem, skip_fireflyp11=False): 
+def get_stats(input_filename, accuracy_file, output_dir, input_stem, skip_dnf=False): 
     # NOTE: separate .c from .md. Doing this with extract_fixations 
     # NOTE: what percentage of fixations on .md vs .c? I am doing this a little manually instead 
     data = pickle.load(open(input_filename, "rb"))
@@ -535,8 +539,12 @@ def get_stats(input_filename, accuracy_file, output_dir, input_stem, skip_firefl
             bug = data[session][0]["bug_name"]
             participant_id = data[session][0]["participant_id"]
             logging.info(f"bug name: {bug}")
-            if skip_fireflyp11 and bug == "firefly" and participant_id == "p11":
+            if skip_dnf and bug == "firefly" and participant_id == "p11":
                 logging.info(f"Skipping firefly p11")
+                continue
+
+            if skip_dnf and bug == "praying_mantis" and participant_id == "p13":
+                logging.info(f"Skipping praying_mantis p13")
                 continue
 
             logging.info("Getting count of fixations...")
@@ -663,12 +671,15 @@ def main():
     # Add arguments for input and output files
     parser.add_argument('input_file', type=str, help="Input file")
     parser.add_argument('accuracy_file', type=str, help="Success file")
-    parser.add_argument("--skip_p11firefly", default=False, action="store_true", help="Don't include p11 firefly data")
+    parser.add_argument("--skip_dnf", default=False, action="store_true", help="Don't include participant-tasks that did not finish (p11 firefly and p13 praying_mantis)")
+    # TODO: don't hardcode participant-tasks that did not finish, get from scores instead
     args = parser.parse_args()
     input_stem = os.path.splitext(os.path.basename(args.input_file))[0]
     
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     output_dir = f"{timestamp}_get_fixation_stats_{input_stem}_outputs"
+    if args.skip_dnf: 
+        output_dir = f"{output_dir}_skip_dnf"
     os.mkdir(output_dir)
     output_stem = f"{output_dir}/{input_stem}"
     default_log = f"{output_stem}_get_fixation_stats.log" 
@@ -681,7 +692,7 @@ def main():
                         logging.StreamHandler()
                     ])
 
-    get_stats(args.input_file, args.accuracy_file, output_dir, input_stem, args.skip_p11firefly)
+    get_stats(args.input_file, args.accuracy_file, output_dir, input_stem, args.skip_dnf)
 
 if __name__ == "__main__":
     main()

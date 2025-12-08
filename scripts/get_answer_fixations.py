@@ -56,15 +56,30 @@ def get_accuracy(accuracy_duration_data, target_p, target_b):
             return task["Where_Accuracy"]
     logging.error(f"Could not find accuracy for {target_p} and {target_b}")
         
-def get_dicts_from_csv(file, accuracy_data=False, skip_fireflyp11=False): 
+import csv
+
+def get_dicts_from_csv(file, accuracy_data=False, skip_dnf=False):
     # Get accuracy data
-    with open(file, mode='r', encoding='utf-8-sig') as file:
-        reader = csv.DictReader(file)
-        if skip_fireflyp11 and accuracy_data:
-            #data = [print(row) for row in reader]
-            data = [row for row in reader if f"{row['Bug']}_{row['Participant ID']}" != "firefly_p11"]
-        else: 
-            data = list(reader)
+    with open(file, mode='r', encoding='utf-8-sig') as f:
+        reader = csv.DictReader(f)
+        
+        # Read the entire CSV data into a list 
+        all_data = list(reader) 
+        
+        if skip_dnf and accuracy_data:
+            data = [
+                row for row in all_data 
+                if f"{row['Bug']}_{row['Participant ID']}" != "firefly_p11"
+            ]
+          
+            data = [
+                row for row in data 
+                if f"{row['Bug']}_{row['Participant ID']}" != "praying_mantis_p13"
+            ]
+        else:
+            # If no filtering is needed, return the original data list
+            data = all_data 
+            
     return data
 
 def convert_system_to_datetime(system_time): 
@@ -152,8 +167,8 @@ def make_chart(bug, participant, lines, correct_lines, output_dir, accuracy_dura
     xdiff = xlen - x0 
     xwidth = xdiff / len(x)
     bars = plt.bar(x, heights, color=colors, width=xwidth)
-    plt.xlabel("Time Since First Fixation (minutes)")
-    ylabel = plt.ylabel("Fixation Duration (ms)")
+    plt.xlabel("Time Since First Fixation (minutes)", fontsize=12)
+    ylabel = plt.ylabel("Fixation Duration (ms)", fontsize=12)
     ylabel.set_position((-0.1, 0.50))  # Lower than default
     #plt.title(f"Fixation Durations for Participant {participant} on Bug {bug} with Buffer={buffer}", pad=20)
     # Determine tick positions every 30 seconds
@@ -260,7 +275,7 @@ def get_lines(bug, flines, participant_id, session, data):
         flines[bug][participant_id] = fixation_lines
     return flines
 
-def parse_data(data, skip_fireflyp11=False): 
+def parse_data(data, skip_dnf=False): 
     bug_names = ["ladybug", "stonefly", "hornet", "praying_mantis", "firefly", "silverfish", "spider", "weevil"]
     flines = {bug: {} for bug in bug_names}
 
@@ -270,13 +285,17 @@ def parse_data(data, skip_fireflyp11=False):
         try: 
             bug = data[session][0]["bug_name"]
             participant_id = data[session][0]["participant_id"]
-            if skip_fireflyp11 and participant_id == 'p11' and bug == "firefly":
+            if skip_dnf and participant_id == 'p11' and bug == "firefly":
                 logging.info(f"Skipping participant 11 for firefly")
+                continue
+            if skip_dnf and participant_id == 'p13' and bug == "praying_mantis":
+                logging.info(f"Skipping participant 13 for praying_mantis")
                 continue
             logging.info(f"bug name: {bug}, participant_id: {participant_id}")
             flines = get_lines(bug, flines, participant_id, session, data)
         except Exception as e: 
             logging.error(f"Could not get data for session: {session} because: {e}")
+            # TODO: right now, for sessions where the participant only looked at the .md file so there are no fixations that are in the no_md version, we hit this error. Need to add a better message about this. 
         
     return flines 
 
@@ -339,6 +358,7 @@ def make_correct_percent_by_accuracy(data, save_name):
     #plt.xticks(rotation=30, ha='right', fontsize=8)
     plt.xticks([])
     plt.ylabel('Percent Correct Fixations')
+    plt.xlabel('Task')
     #plt.title('Percent Correct by Participant-Bug, Color-coded by Where Accuracy')
     # Format y-axis as percentages
     plt.gca().yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: f'{y:.0%}'))
@@ -657,9 +677,10 @@ def plot_for_fig8(metric, df_filtered, graph_filename, low_threshold=2, high_thr
     plt.savefig(f"{graph_filename}_fig8.svg")
     plt.close()
 
-def divide_by_accuracy(df, metrics, graph_filename, low_threshold=2, high_threshold=4, fig8=False, skip_fireflyp11=False): 
-    if skip_fireflyp11:
+def divide_by_accuracy(df, metrics, graph_filename, low_threshold=2, high_threshold=4, fig8=False, skip_dnf=False): 
+    if skip_dnf:
         df = df[~((df['participant'] == 'p11') & (df['bug'] == 'firefly'))]
+        df = df[~((df['participant'] == 'p13') & (df['bug'] == 'praying_mantis'))]
     # Create task identifier
     df['task'] = df['bug'].astype(str) + "_" + df['participant'].astype(str)
 
@@ -743,7 +764,7 @@ def main():
     parser.add_argument("--skip_dwell", action="store_true", help="Skip getting dwell information")
     parser.add_argument("--low_threshold", type=int, default=2, help="Unsuccessful Accuracy Threshold (default: 2)")
     parser.add_argument("--high_threshold", type=int, default=4, help="Successful Accuracy Threshold (default: 4)")
-    parser.add_argument("--skip_p11firefly", default=False, action="store_true", help="Don't include p11 firefly data")
+    parser.add_argument("--skip_dnf", default=False, action="store_true", help="Don't include p11  and p13 praying_mantis data because they did not finish the task")
     
     # TODO: add ability to specify previously computed .csv file?
     # TODO: --includes_md what was I intending to use this flag for? 
@@ -752,7 +773,9 @@ def main():
     input_stem = os.path.splitext(os.path.basename(args.input_file))[0]
     
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    output_dir = f"{timestamp}_get_answer_fixations_{input_stem}_outputs"
+    output_dir = f"{timestamp}_get_answer_fixations_{input_stem}_outputs_L{args.low_threshold}_H{args.high_threshold}"
+    if args.skip_dnf: 
+        output_dir = f"{output_dir}_skip_dnf"
     os.mkdir(output_dir)
     output_stem = f"{output_dir}/{input_stem}"
     default_log = f"{output_stem}_get_answer_fixations.log" 
@@ -767,20 +790,24 @@ def main():
 
    
     data = load_data(args.input_file)
-    accuracy_duration_data = get_dicts_from_csv(args.duration_file, accuracy_data=True, skip_fireflyp11=args.skip_p11firefly)
-    correct_lines_data = get_dicts_from_csv(args.correct_lines_file, args.skip_p11firefly)
+    accuracy_duration_data = get_dicts_from_csv(args.duration_file, accuracy_data=True, skip_dnf=args.skip_dnf)
+    print(f"Accuracy duration data: {accuracy_duration_data}")
+    correct_lines_data = get_dicts_from_csv(args.correct_lines_file, args.skip_dnf)
     
-    flines = parse_data(data, args.skip_p11firefly)
+    flines = parse_data(data, args.skip_dnf)
     if args.skip_timelines == False:
         for i in range(0,(args.buffer)+1): 
             create_summary(flines, output_dir, accuracy_duration_data, correct_lines_data, buffer=i)
     
     df = flatten_flines(flines, accuracy_duration_data)
     report_duplicates(df)
-    if args.skip_p11firefly:
+    if args.skip_dnf:
         df = df[~((df['participant'] == 'p11') & (df['bug'] == 'firefly'))]
         print(f"Removed p11 firefly data")
-        print(df)
+        #print(df)
+        df = df[~((df['participant'] == 'p13') & (df['bug'] == 'praying_mantis'))]
+        print(f"Removed p13 praying_mantis data")
+        #print(df)
     df = add_next_fixation_same(df)
     if args.skip_dwell == False:
         df = add_dwell_counts(df)
@@ -799,7 +826,7 @@ def main():
                 'left_pupil_diameter']
     if args.skip_dwell == False:
         metrics.extend(['same_line_fixations_next_30s', 'same_line_duration_next_30s']) 
-    divided_df = divide_by_accuracy(df, metrics, f"{output_dir}/{input_stem}_divided_per_fixation_by_accuracy", low_threshold=args.low_threshold, high_threshold=args.high_threshold, fig8=False, skip_fireflyp11=args.skip_p11firefly)
+    divided_df = divide_by_accuracy(df, metrics, f"{output_dir}/{input_stem}_divided_per_fixation_by_accuracy", low_threshold=args.low_threshold, high_threshold=args.high_threshold, fig8=False, skip_dnf=args.skip_dnf)
     df.to_csv(f"{output_dir}/{input_stem}_next_fixation_similarity.csv", index=False)
     divided_df.to_csv(f"{output_dir}/{input_stem}_divided_per_fixation_by_accuracy.csv", index=False)
 
@@ -828,7 +855,7 @@ def main():
     # so first, we took the average or percentage for each task 
     # now, we take the average of those averages or percentages after sorting by accuracy 
     # a more appropriate suffix might be something like "average_of_task_averages_divided_by_accuracy"
-    divided = divide_by_accuracy(count_and_percentage, metrics, f"{output_dir}/{input_stem}_divided_by_accuracy", low_threshold=args.low_threshold, high_threshold=args.high_threshold, fig8=True, skip_fireflyp11=args.skip_p11firefly)
+    divided = divide_by_accuracy(count_and_percentage, metrics, f"{output_dir}/{input_stem}_divided_by_accuracy", low_threshold=args.low_threshold, high_threshold=args.high_threshold, fig8=True, skip_dnf=args.skip_dnf)
     count_and_percentage.to_csv(f"{output_dir}/{input_stem}_next_fixation_similarity_percent.csv", index=False)
     divided.to_csv(f"{output_dir}/{input_stem}_divided_by_accuracy.csv", index=False)
 

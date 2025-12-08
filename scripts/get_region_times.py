@@ -25,6 +25,7 @@ def get_times(data, output_stem):
         writer = csv.writer(file)
         writer.writerow(col_headers)  # Write header row 
         for session in data: 
+            print(f"Processing session: {session}")
             bug = data[session][0]["bug_name"]
             participant_id = data[session][0]["participant_id"]
             logging.info(f"bug name: {bug}, particiapnt id: {participant_id}")

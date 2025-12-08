@@ -18,43 +18,43 @@ def find_methods_tally_file(directory: str, ending):
             return os.path.join(directory, file)
     return ""
 
-def run_graph_stats(directory: str):
+def run_graph_stats(directory: str, scripts_dir: str = ".", spreadsheet_dir: str = "."):
     fdurations_command = [
-        "python", "./graph_stats.py",
+        "python", f"{scripts_dir}/graph_stats.py",
         f"{directory}\\fdurations_per_bug",
         "Mean Fixation Duration",
-        "official_bug_names.csv",
+        f"{spreadsheet_dir}/official_bug_names.csv",
         "--no_participant_label"
     ]
     fduration_means_command = [
-        "python", "./graph_stats.py",
+        "python", f"{scripts_dir}/graph_stats.py",
         f"{directory}\\fduration_means_per_bug",
         "Mean of Mean Fixation Durations per Participant",
-         "official_bug_names.csv"
+         f"{spreadsheet_dir}/official_bug_names.csv"
     ]
     fcount_command = [
-        "python", "./graph_stats.py",
+        "python", f"{scripts_dir}/graph_stats.py",
         f"{directory}\\fcount",
         "Mean Fixations",
-        "official_bug_names.csv"
+        f"{spreadsheet_dir}/official_bug_names.csv"
     ]
     flines_uniq = [
-        "python", "./graph_stats.py",
+        "python", f"{scripts_dir}/graph_stats.py",
         f"{directory}\\flines_uniq",
         "Mean Fixation Lines",
-        "official_bug_names.csv"
+        f"{spreadsheet_dir}/official_bug_names.csv"
     ]
     fregressionrate = [
-        "python", "./graph_stats.py",
+        "python", f"{scripts_dir}/graph_stats.py",
         f"{directory}\\fregressionrate",
         "Mean Regression Rate",
-        "official_bug_names.csv"
+        f"{spreadsheet_dir}/official_bug_names.csv"
     ]
     fmethods_uniq = [
-        "python", "./graph_stats.py",
+        "python", f"{scripts_dir}/graph_stats.py",
         f"{directory}\\fmethods_uniq",
         "Mean Fixation Methods",
-        "official_bug_names.csv"
+        f"{spreadsheet_dir}/official_bug_names.csv"
     ]
 
     methods_tally_file = find_methods_tally_file(directory, "fmethods_tally.csv")
@@ -62,9 +62,9 @@ def run_graph_stats(directory: str):
         print("Error: No file ending with 'fmethods_tally.csv' found in the directory.")
     else: 
         topx_contain_ypercent_fixations_command = [
-            "python", "./topx_contain_ypercent_fixations_log.py", 
+            "python", f"{scripts_dir}/topx_contain_ypercent_fixations_log.py", 
             f"{methods_tally_file}",
-            "official_bug_names.csv"
+            f"{spreadsheet_dir}/official_bug_names.csv"
         ]
         print(f"{topx_contain_ypercent_fixations_command}")
         run_command(topx_contain_ypercent_fixations_command)
@@ -74,9 +74,9 @@ def run_graph_stats(directory: str):
         print("Error: No file ending with 'flines_tally.csv' found in the directory.")
     else: 
         topx_contain_ypercent_fixations_command = [
-            "python", "./topx_contain_ypercent_fixations_log.py", 
+            "python", f"{scripts_dir}/topx_contain_ypercent_fixations_log.py", 
             f"{lines_tally_file}",
-            "official_bug_names.csv",
+            f"{spreadsheet_dir}/official_bug_names.csv",
             "--unit", "Lines", 
             "--unit_max", "250"
         ]
@@ -88,9 +88,9 @@ def run_graph_stats(directory: str):
         print("Error: No file ending with 'fmethods_uniq.csv' found in the directory.")
     else: 
         create_methods_command = [
-            "python", "./create_specified_plot.py",
+            "python", f"{scripts_dir}/create_specified_plot.py",
             methods_uniq_file,
-            "official_bug_names.csv",
+            f"{spreadsheet_dir}/official_bug_names.csv",
             "Bug",
             "Unique Fixation Method Count",
             "Participant ID",
@@ -101,9 +101,9 @@ def run_graph_stats(directory: str):
         run_command(create_methods_command)
 
     durations_by_score = [
-        "python", "./create_duration_success_plots.py",
-       "duration_from_notes.csv",
-        "official_bug_names.csv"
+        "python", f"{scripts_dir}/create_duration_success_plots.py",
+       f"{spreadsheet_dir}/duration_from_notes.csv",
+        f"{spreadsheet_dir}/official_bug_names.csv"
     ]
 
 
@@ -120,5 +120,7 @@ def run_graph_stats(directory: str):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run graph_stats.py with a specified directory.")
     parser.add_argument("directory", help="Directory containing fixation data")
+    parser.add_argument("--scripts-dir", default=".", help="Directory containing the scripts (default: current directory)")
+    parser.add_argument("--spreadsheet-dir", default=".", help="Directory containing the CSV files (default: current directory)")
     args = parser.parse_args()
-    run_graph_stats(args.directory)
+    run_graph_stats(args.directory, args.scripts_dir, args.spreadsheet_dir)

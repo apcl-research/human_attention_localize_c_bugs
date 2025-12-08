@@ -12,6 +12,9 @@ from collections import Counter
 import matplotlib.patches as mpatches
 from matplotlib.lines import Line2D
 from collections import defaultdict
+import matplotlib.cm as cm
+import matplotlib.colors as mcolors
+import numpy.ma as ma
 
 def plot_csv_data(csv_file, official_bug_names_csv, x_col, y_col, label_col, title=None, xlabel=None, ylabel=None, dir=None):
     input_dir = os.path.dirname(os.path.abspath(csv_file))
@@ -49,9 +52,20 @@ def plot_csv_data(csv_file, official_bug_names_csv, x_col, y_col, label_col, tit
         xy_to_indices[(xi, yi)].append(i)
 
     # Set up the plot
-    plt.figure(figsize=(5, 3))
+    plt.figure(figsize=(7, 5))
     unique_labels = natsorted(labels.unique())
-    palette = dict(zip(unique_labels, sns.color_palette("tab20", len(unique_labels))))
+
+    # 1. Start with the high-contrast tab20 colors (20 colors)
+    colors = list(cm.get_cmap('tab20').colors) 
+
+    # 2. Add one highly distinct color that contrasts well with tab20
+    # Example: A bright magenta or a distinct brown/gold
+    supplement_color = mcolors.to_rgba('gold') # Or 'magenta'
+
+    # 3. Combine to get 21 distinct colors
+    colors.append(supplement_color)
+
+    palette = dict(zip(unique_labels, colors[:len(unique_labels)]))
 
     legend_handles = []
 
@@ -73,7 +87,13 @@ def plot_csv_data(csv_file, official_bug_names_csv, x_col, y_col, label_col, tit
                                     markerfacecolor=palette[label], markersize=8,
                                     label=label))
 
-    plt.legend(handles=legend_handles, loc='center left', bbox_to_anchor=(1, 0.5), title=label_col)
+    plt.legend(
+    handles=legend_handles,
+    title=label_col,
+    #loc='lower left',          # anchor point of legend
+    bbox_to_anchor=(1.1, 1),  # push it outside the axes
+    fontsize=10
+    )
     '''
     scatter = plt.scatter(x, y, c=palette)
     
@@ -86,12 +106,12 @@ def plot_csv_data(csv_file, official_bug_names_csv, x_col, y_col, label_col, tit
     #adjustText.adjust_text(texts, expand_points=(1.2, 1.5), expand_text=(1.2, 1.5), force_points=(0.3, 0.5), force_text=(0.3, 0.5), arrowprops=dict(arrowstyle='-', color='gray', lw=0.5))
     '''
     # Set axis labels and title
-    plt.xlabel(xlabel if xlabel else x_col)
-    plt.ylabel(ylabel if ylabel else y_col)
+    plt.xlabel(xlabel if xlabel else x_col, fontsize=12)
+    plt.ylabel(ylabel if ylabel else y_col, fontsize=12)
     #plt.title(title if title else f"Scatter Plot of {y_col} vs {x_col}")
     
     # Set new x-axis labels in the scatter plot
-    plt.xticks(ticks=np.arange(len(x_labels)), labels=x_labels, rotation=25, ha="right")
+    plt.xticks(ticks=np.arange(len(x_labels)), labels=x_labels, rotation=25, ha="right", fontsize=12)
 
     # Use tight layout to adjust labels and prevent clipping
     plt.tight_layout()

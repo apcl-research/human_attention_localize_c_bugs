@@ -8,6 +8,7 @@ import math
 import csv 
 from natsort import natsorted
 
+
 def calculate_top_units(data, percentage, unit, count_col_name, curr_data=None):
     """
     Determines the number of units that contain the given percentage of the total fixations.
@@ -84,9 +85,9 @@ def plot_bug_summary(bug_data, bug, percentage, output_dir, official_bug_names, 
     
     bar_width = 0.8
     num_participants = len(bug_data)
-    cols = min(3, num_participants)
+    cols = min(4, num_participants)
     rows = math.ceil(num_participants / cols)
-    fig, axes = plt.subplots(rows, cols, figsize=(cols * 2.25, rows * 2.1), squeeze=False)
+    fig, axes = plt.subplots(rows, cols, figsize=(cols * 1.6875, rows * 1.575), squeeze=False, constrained_layout=True)
     
     def draw_break_marker(ax, x, width, y_cutoff):
         marker_gap = 4.2     # vertical distance below y_cutoff where marker starts
@@ -133,21 +134,34 @@ def plot_bug_summary(bug_data, bug, percentage, output_dir, official_bug_names, 
         ax.set_ylim(1, bug_max*1.2)
         ax.set_xlim(0, max_units)
         
+        # Set consistent x-axis ticks and labels for all subplots
         if total_units > unit_max:
             ax.set_xticks([x_positions[-1]])
-            #ax.set_xticklabels([labels[-1]])
             ax.set_xticklabels([labels[-1]], fontsize=12)
             ax.bar(x_positions[-1], counts_to_plot[-1], width=bar_width, color='black', align='edge')
-        else:  
-            ax.set_xticklabels([])
+        else: 
+            ax.set_xticks([])
         
-        ax.set_title(f'{participant}: Top {adjusted_top}/{total_units} {unit}')
+        ax.set_title(f'{participant}: Top {adjusted_top}/{total_units}')
         #ax.set_title(f'{participant}: Top {adjusted_top}/{total_units} {unit}', fontsize=14)
         #ax.set_ylabel('Fixation Count', fontsize=12)
         ax.tick_params(axis='y', labelsize=12)
         
     for row in range(rows):
         axes[row, 0].set_ylabel('Fixation Count', fontsize=12)
+        # Add x-axis label for each subplot in the row
+        for col in range(cols):
+            # Check if this subplot has tick labels (like "f25-39")
+            ax = axes[row, col]
+            print(f"ax.get_xticklabels(): {ax.get_xticklabels()}")
+            if ax.get_xticklabels():
+                print(f"tick labels for {participant}, bug: {bug}")
+                # If there are tick labels, position the x-axis label normally
+                ax.set_xlabel(unit.capitalize(), fontsize=12)
+            else:
+                print(f"no tick labels for {participant}, bug: {bug}")
+                # If no tick labels, position the x-axis label lower to align with other subplots
+                ax.set_xlabel(unit.capitalize(), fontsize=12, labelpad=23)
 
     # Hide any unused subplots.
     for ax in axes.flatten()[len(bug_data):]:
@@ -158,7 +172,7 @@ def plot_bug_summary(bug_data, bug, percentage, output_dir, official_bug_names, 
     #fig.suptitle(f'Bug {official_bug_name} - Fixation Distribution ({percentage}%)', y=0.98)
     #fig.suptitle(f'Bug {official_bug_name} - Fixation Distribution ({percentage}%)', fontsize=18, y=0.98)
     #fig.subplots_adjust(top=0.85)
-    plt.tight_layout()
+    # plt.tight_layout()  # Not needed with constrained_layout=True
     
     # Save the summary figure in both PNG and SVG formats.
     plot_filename = f'{bug}_{official_bug_name}_{unit}_summary_{percentage}percent_log'

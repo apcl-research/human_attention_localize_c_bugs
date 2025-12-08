@@ -94,7 +94,7 @@ def verify_fixations_table_order(fname):
             current_time = convert_system_to_datetime(system_time) 
             #print(f"{i}, fixation_id: {entry["fixation_id"]}, event_time: {event_time}, system_time: {system_time}, current_time: {current_time}, prev_time: {prev_time}")
             if current_time < prev_time: 
-                print(f"ERROR: Current time at index {i} {current_time} is < prev_time: {prev_time}, fname: {fname}")
+                logging.error(f"ERROR: Current time at index {i} {current_time} is < prev_time: {prev_time}, fname: {fname}")
                 #exit(1)
             prev_time = current_time
     logging.info(f"Verified fixations table time ordering")
@@ -113,6 +113,17 @@ def get_firefly_p8_cutoff(fname):
            print(f"Found first fixation with time past end with time: {convert_system_to_datetime(system_time)}")
            print(f"entry: {entry}")
            return entry["event_time"], entry["fixation_id"]
+
+def do_fixation_check(fname):
+    sqliteConnection = sqlite3.connect(fname)  # Connect to the SQLite database
+    cursor = sqliteConnection.cursor()
+    cursor.execute('SELECT * from fixation_run')
+    desc = cursor.description  # Get column descriptions
+    col_names = [col[0] for col in desc]  # Extract column names
+    data = [dict(zip(col_names, row)) for row in cursor]  # Convert rows to dictionaries
+    for i,entry in enumerate(data):
+        if entry["filter"] != "IVT,50,80":
+            logging.warning(f"Fixations in database {fname} was created with filter {entry['filter']} instead of IVT!")
 
 # Function to extract fixation data from a SQLite database file
 def extract_data(fname, type='fixations'):
@@ -187,6 +198,7 @@ def main():
     parser.add_argument("--no-gazes", type=bool, nargs="?", const=True, default=False, help="Don't extract gazes (default: False)")
     parser.add_argument("--no-md", type=bool, nargs="?", const=True, default=False, help="Remove fixations on markdown files .md (default: False)")
     parser.add_argument("--no-verify", type=bool, nargs="?", const=True, default=False, help="Don't verify db time order")
+    parser.add_argument("--no_fixation_check", action="store_true", help="Don't check if fixations were created with IVT as expected")
     args = parser.parse_args()
 
     # Generate a timestamped filename with timestamp at the beginning
@@ -222,6 +234,8 @@ def main():
                 if not args.no_verify: 
                     verify_gazes_table_order(fname)
                 final_gazes[sample] = extract_data(fname, 'gazes')  # Retrieve gaze data
+            if not args.no_fixation_check:
+                do_fixation_check(fname)
         except Exception as e:
             logging.error(f"Error processing {fname}: {e}")  # Print error message if processing fails
     

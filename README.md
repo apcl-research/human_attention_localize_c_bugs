@@ -126,15 +126,15 @@ Switch to the `analyze` branch
 ### 4.1.1 Eye Tracking Data 
 > [!NOTE]
 > - You may skip all of these steps if you would like to use our generated .pkl files located at this Google Drive Link: https://drive.google.com/drive/folders/1eTnnvSOuRE0g94TNWKcHzAgez_4G1xa9?usp=drive_link    
-> - You may skip to step 6 if you would like to use our generated databases located at this Google Drive Links: https://drive.google.com/drive/folders/1_D4LoZXNVAaxDzO2TuDV_Dc0lOmk_dOm?usp=drive_link    
+> - You may skip to step 6 if you would like to use our generated databases located at this Google Drive Links: https://drive.google.com/file/d/1W5Sg9k8IGHyC_9tHMhCjEZTh0IBeaD6K/view?usp=sharing
 > - Skip to step 3 if using study's original data which is included in this repository, `analyze` branch, `only_eclipse_data` folder. Note, you many need to unzip some large files.  
 
 1. Reorganize data to make sure there are no nested folders (iTrace-Toolkit does not handle nested folder structures well). You will see that some of the folder organization of `only_eclipse_data` in the `analyze` branch has been modified from `main`'s version to accommodate this. In situations where there are nested folders in `only_eclipse_data` in the `analyze` branch, these folders are used to create separate databases. 
 2. Convert all relevant references to .md files to references to .c files in the iTrace/eclipse .xml files. Use `convert_md_to_c_in_eclipse_xml.py` 
 #### Note: This is the state that the files in `only_eclipse_data` in the `analyze` branch are in 
 #### Note: You may skip steps 3-4 if you would like to use our generated srcML files located at this Google Drive Link: https://drive.google.com/drive/folders/1Y4HQGYNrKKFCap6LzHGmnmCDMB3xlQEa?usp=drive_link 
-3. Convert all .md files in the directory containing the code for the bug and in the study instructions directory to .c files. we do this because srcml cannot create .xmls for .md files. To do this, use the `rename_md_to_c.py` script 
-4. Generate the srcml for the directory containing the code for the bug and the instructions directory. (must install srcml on machine first) 
+1. Convert all .md files in the directory containing the code for the bug and in the study instructions directory to .c files. we do this because srcml cannot create .xmls for .md files. To do this, use the `rename_md_to_c.py` script 
+2. Generate the srcml for the directory containing the code for the bug and the instructions directory. (must install srcml on machine first) 
 Command: 
 ```
 srcml --verbose --archive --position path\to\bug\directory path\to\instructions\directory -o {bug_name}_{participant_id}.xml
@@ -162,7 +162,7 @@ srcml --verbose --archive --position path\to\bug\directory path\to\instructions\
   - Open the screen recording for the task and make it full screen on the computer used to complete the task 
   - Click any key on the keyboard to trigger the script to log x,y coordinates 
   - Click on the top-left and bottom-right corners of each region 
-#### Our screen recordings are located in the folders for each task here: https://drive.google.com/drive/folders/1XD6sTp58JqH-pPvnUD8yfo3JKRSm-rya?usp=drive_link 
+#### Our screen recordings are located in the folders for each task here: https://drive.google.com/drive/folders/1XD6sTp58JqH-pPvnUD8yfo3JKRSm-rya?usp=drive_link and here: https://notredame.box.com/s/cxpzzdej9b5xxcjbu32bfw1wrii6c0m1 
 
 ### 4.1.3 AI Chat Data (Table 10 Queries)
 1. If you are conducting your own study, you will have the `.json` files saved from the Remain AI Chat Window in Eclipse for each participant 

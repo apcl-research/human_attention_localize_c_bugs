@@ -56,8 +56,6 @@ def get_accuracy(accuracy_duration_data, target_p, target_b):
             return task["Where_Accuracy"]
     logging.error(f"Could not find accuracy for {target_p} and {target_b}")
         
-import csv
-
 def get_dicts_from_csv(file, accuracy_data=False, skip_dnf=False):
     # Get accuracy data
     with open(file, mode='r', encoding='utf-8-sig') as f:
@@ -791,7 +789,6 @@ def main():
    
     data = load_data(args.input_file)
     accuracy_duration_data = get_dicts_from_csv(args.duration_file, accuracy_data=True, skip_dnf=args.skip_dnf)
-    print(f"Accuracy duration data: {accuracy_duration_data}")
     correct_lines_data = get_dicts_from_csv(args.correct_lines_file, args.skip_dnf)
     
     flines = parse_data(data, args.skip_dnf)

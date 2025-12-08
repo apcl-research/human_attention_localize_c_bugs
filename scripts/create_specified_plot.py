@@ -58,9 +58,8 @@ def plot_csv_data(csv_file, official_bug_names_csv, x_col, y_col, label_col, tit
     # 1. Start with the high-contrast tab20 colors (20 colors)
     colors = list(cm.get_cmap('tab20').colors) 
 
-    # 2. Add one highly distinct color that contrasts well with tab20
-    # Example: A bright magenta or a distinct brown/gold
-    supplement_color = mcolors.to_rgba('gold') # Or 'magenta'
+    # 2. Add one highly distinct color that contrasts well with tab20 for participant 21 
+    supplement_color = mcolors.to_rgba('gold') 
 
     # 3. Combine to get 21 distinct colors
     colors.append(supplement_color)

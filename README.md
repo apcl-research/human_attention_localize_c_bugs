@@ -133,8 +133,8 @@ Switch to the `analyze` branch
 2. Convert all relevant references to .md files to references to .c files in the iTrace/eclipse .xml files. Use `convert_md_to_c_in_eclipse_xml.py` 
 #### Note: This is the state that the files in `only_eclipse_data` in the `analyze` branch are in 
 #### Note: You may skip steps 3-4 if you would like to use our generated srcML files located at this Google Drive Link: https://drive.google.com/drive/folders/1Y4HQGYNrKKFCap6LzHGmnmCDMB3xlQEa?usp=drive_link 
-1. Convert all .md files in the directory containing the code for the bug and in the study instructions directory to .c files. we do this because srcml cannot create .xmls for .md files. To do this, use the `rename_md_to_c.py` script 
-2. Generate the srcml for the directory containing the code for the bug and the instructions directory. (must install srcml on machine first) 
+3. Convert all .md files in the directory containing the code for the bug and in the study instructions directory to .c files. we do this because srcml cannot create .xmls for .md files. To do this, use the `rename_md_to_c.py` script 
+4. Generate the srcml for the directory containing the code for the bug and the instructions directory. (must install srcml on machine first) 
 Command: 
 ```
 srcml --verbose --archive --position path\to\bug\directory path\to\instructions\directory -o {bug_name}_{participant_id}.xml

@@ -73,6 +73,10 @@
 ## 5.2 Script Details 
 <details>
   <summary><strong>Expand Section</strong></summary>
+  
+> [!NOTE]
+> In the revised version of the paper, we have renamed "What Accuracy" to "Cause Accuracy" and "Where Accuracy" to "Location Accuracy."
+> In all the scripts, "What Accuracy" and "Where Accuracy" are used. 
 
 ### 5.2.1 `convert_md_to_c_in_eclipse_xml.py`
 <details>

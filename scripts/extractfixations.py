@@ -125,6 +125,19 @@ def do_fixation_check(fname):
         if entry["filter"] != "IVT,50,80":
             logging.warning(f"Fixations in database {fname} was created with filter {entry['filter']} instead of IVT!")
 
+def get_fixation_gaze_table(fname):
+    sqliteConnection = sqlite3.connect(fname)
+    cursor = sqliteConnection.cursor()
+    
+    # It is more efficient to select only the columns you need
+    cursor.execute('SELECT event_time, fixation_id FROM fixation_gaze')
+    
+    # Use a dictionary comprehension to map event_time -> fixation_id
+    data = {row[0]: row[1] for row in cursor}
+    
+    sqliteConnection.close() # Good practice to close the connection
+    return data
+
 # Function to extract fixation data from a SQLite database file
 def extract_data(fname, type='fixations'):
     # TODO: we don't need the header row for every db 
@@ -134,6 +147,7 @@ def extract_data(fname, type='fixations'):
         cursor.execute('SELECT * from fixation')  # Retrieve all records from the 'fixation' table
     elif type == 'gazes': 
         cursor.execute('SELECT * from gaze')  # Retrieve all records from the 'gaze' table
+        fixation_gaze_table = get_fixation_gaze_table(fname)
     desc = cursor.description  # Get column descriptions
     col_names = [col[0] for col in desc]  # Extract column names
     data = [dict(zip(col_names, row)) for row in cursor]  # Convert rows to dictionaries
@@ -161,6 +175,13 @@ def extract_data(fname, type='fixations'):
             entry["human_time"] = convert_datetime_to_human(convert_system_to_datetime(get_system_time_from_event_time(fname, get_event_time_from_fixation_id(fname, entry["fixation_id"]))))
         elif type == 'gazes': 
             entry["human_time"] = convert_datetime_to_human(convert_system_to_datetime(entry["system_time"])) 
+            if entry["event_time"] in fixation_gaze_table:
+                #print(f"Mapping gaze event_time {entry['event_time']} to fixation_id {fixation_gaze_table[entry['event_time']]}")
+                entry["fixation_id"] = fixation_gaze_table[entry["event_time"]]
+            else: 
+                #print(f"No fixation_id found for gaze event_time {entry['event_time']}")
+                entry["fixation_id"] = None
+
         
         try: 
             participant_id, bug_name = os.path.basename(fname).split("_", 1)

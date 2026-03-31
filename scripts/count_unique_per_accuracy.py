@@ -159,12 +159,12 @@ def plot_stacked_histogram(df, group_col, count_col, title, output_path):
 
     for idx, participant in enumerate(participants):
         vals = counts.get(participant, pd.Series(0, index=accuracy_levels)).values
-       
+        # --- NEW CODE: Mask zero values ---
         # Create a masked array: if vals == 0, the value is masked (ignored by Matplotlib)
         masked_vals = ma.masked_where(vals == 0, vals)
         # -----------------------------------
         
-        
+        print(f"index is: {idx}, participant is: {participant}, vals are: {vals}")
         ax.bar(
             accuracy_levels,
             masked_vals,  # Use the masked array here
@@ -190,7 +190,7 @@ def plot_stacked_histogram(df, group_col, count_col, title, output_path):
     # 8) Final styling
     #ax.set_title(title)
     #ax.set_xlabel('Where_Accuracy (floors .5→int, 0→1)')
-    ax.set_xlabel('Where_Accuracy (Rounded 0→1)', fontsize=14) # no half scores in p1-21
+    ax.set_xlabel('Location Accuracy', fontsize=14) # no half scores in p1-21
     ax.set_ylabel(f'Num Tasks', fontsize=14)
     ax.set_xticks(accuracy_levels)
     ax.legend(title=group_col, bbox_to_anchor=(1.05, 1.04), loc='upper left')

@@ -56,6 +56,7 @@ def get_accuracy(accuracy_duration_data, target_p, target_b):
             return task["Where_Accuracy"]
     logging.error(f"Could not find accuracy for {target_p} and {target_b}")
         
+
 def get_dicts_from_csv(file, accuracy_data=False, skip_dnf=False):
     # Get accuracy data
     with open(file, mode='r', encoding='utf-8-sig') as f:
@@ -158,7 +159,7 @@ def make_chart(bug, participant, lines, correct_lines, output_dir, accuracy_dura
         colors.append(correct_color if is_correct else "gray")
 
     #plt.figure(figsize=(5, 2.5))
-    plt.figure(figsize=(5, 3.5))
+    plt.figure(figsize=(7, 3.5))
     
     x0 = x[0]
     xlen = x[len(x)-1]
@@ -322,14 +323,14 @@ def make_correct_percent_by_accuracy(data, save_name):
     df_all['participant_bug'] = df_all['participant'] + ' - ' + df_all['bug']
 
     # Sort by where_accuracy
-    df_all.sort_values('where_accuracy', inplace=True)
+    df_all.sort_values(['where_accuracy', 'bug'], inplace=True)
 
     # Normalize where_accuracy for colormap
     norm = mcolors.Normalize(vmin=df_all['where_accuracy'].min(), vmax=df_all['where_accuracy'].max())
     colors = cm.viridis(norm(df_all['where_accuracy']))
 
     # Plotting
-    plt.figure(figsize=(4.86, 2.66))
+    plt.figure(figsize=(5, 4))
     bars = plt.bar(
         df_all['participant_bug'],
         df_all['percent_correct'],
@@ -346,15 +347,15 @@ def make_correct_percent_by_accuracy(data, save_name):
     
     plt.legend(
         handles=legend_patches,
-        title="Where Accuracy",
-        bbox_to_anchor=(1.05, 1),  # Move legend outside plot
+        title="Location Accuracy",
+        #bbox_to_anchor=(1.05, 1),  # Move legend outside plot
         loc='upper left',
         borderaxespad=0.
     )
     
     # Formatting
-    #plt.xticks(rotation=30, ha='right', fontsize=8)
-    plt.xticks([])
+    plt.xticks(rotation=45, ha='right', fontsize=1)
+    #plt.xticks([])
     plt.ylabel('Percent Correct Fixations')
     plt.xlabel('Task')
     #plt.title('Percent Correct by Participant-Bug, Color-coded by Where Accuracy')
@@ -762,7 +763,7 @@ def main():
     parser.add_argument("--skip_dwell", action="store_true", help="Skip getting dwell information")
     parser.add_argument("--low_threshold", type=int, default=2, help="Unsuccessful Accuracy Threshold (default: 2)")
     parser.add_argument("--high_threshold", type=int, default=4, help="Successful Accuracy Threshold (default: 4)")
-    parser.add_argument("--skip_dnf", default=False, action="store_true", help="Don't include p11 firefly and p13 praying_mantis data because they did not finish the task")
+    parser.add_argument("--skip_dnf", default=False, action="store_true", help="Don't include p11  and p13 praying_mantis data because they did not finish the task")
     
     # TODO: add ability to specify previously computed .csv file?
     # TODO: --includes_md what was I intending to use this flag for? 
@@ -789,6 +790,7 @@ def main():
    
     data = load_data(args.input_file)
     accuracy_duration_data = get_dicts_from_csv(args.duration_file, accuracy_data=True, skip_dnf=args.skip_dnf)
+    print(f"Accuracy duration data: {accuracy_duration_data}")
     correct_lines_data = get_dicts_from_csv(args.correct_lines_file, args.skip_dnf)
     
     flines = parse_data(data, args.skip_dnf)

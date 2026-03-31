@@ -32,8 +32,12 @@ def plot_csv_data(csv_file, official_bug_names_csv, x_col, y_col, label_col, tit
 
     # Map x values to official bug names
     #x_labels = [official_bug_names.get(str(val), str(val)) for val in official_bug_names]  # Default to the original value if not found
-    #x_labels = [f"{official_bug_names.get(str(val), str(val))} ({val})" for val in df[x_col].unique()]
-    x_labels = [f"{val}" for val in df[x_col].unique()]
+    x_labels = [f"{val} ({official_bug_names.get(str(val), str(val))})" for val in df[x_col].unique()]
+    x_labels = [
+        f"{val.replace('praying_mantis', 'mantis')}\n({''.join(c for c in str(official_bug_names.get(str(val), val)) if c.isalpha() or c.isspace())})" 
+        for val in df[x_col].unique()
+    ]
+    #x_labels = [f"{val}" for val in df[x_col].unique()]
 
     # Check if the specified columns exist
     if x_col not in df.columns or y_col not in df.columns or label_col not in df.columns:
@@ -58,8 +62,9 @@ def plot_csv_data(csv_file, official_bug_names_csv, x_col, y_col, label_col, tit
     # 1. Start with the high-contrast tab20 colors (20 colors)
     colors = list(cm.get_cmap('tab20').colors) 
 
-    # 2. Add one highly distinct color that contrasts well with tab20 for participant 21 
-    supplement_color = mcolors.to_rgba('gold') 
+    # 2. Add one highly distinct color that contrasts well with tab20
+    # Example: A bright magenta or a distinct brown/gold
+    supplement_color = mcolors.to_rgba('gold') # Or 'magenta'
 
     # 3. Combine to get 21 distinct colors
     colors.append(supplement_color)
@@ -130,7 +135,7 @@ def plot_csv_data(csv_file, official_bug_names_csv, x_col, y_col, label_col, tit
     plt.show()
     
     # Create the box plot
-    plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(7,5))
     sns.boxplot(x=x, y=y, color='lightblue')
     
     # Set axis labels and title
@@ -149,6 +154,8 @@ def plot_csv_data(csv_file, official_bug_names_csv, x_col, y_col, label_col, tit
     boxplot_filename = f"{filename_title}_{timestamp}.svg"
     plt.savefig(os.path.join(output_dir, boxplot_filename), dpi=300, bbox_inches='tight')
     boxplot_filename = f"{filename_title}_{timestamp}.png"
+    plt.savefig(os.path.join(output_dir, boxplot_filename), dpi=300, bbox_inches='tight')
+    boxplot_filename = f"{filename_title}_{timestamp}.pdf"
     plt.savefig(os.path.join(output_dir, boxplot_filename), dpi=300, bbox_inches='tight')
     print(f"Box plot saved as {boxplot_filename}")
     
